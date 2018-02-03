@@ -11,7 +11,7 @@ app = Flask(__name__, static_url_path='/static')
 def index():
 #	result = firebase.get('/Recipes/Banana Pancake/Ingredients', None)	
 	return render_template(
-		'index.html',**locals())
+		'index.html') #**locals())
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=80)

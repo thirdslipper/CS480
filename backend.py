@@ -3,18 +3,28 @@ from firebase import firebase
 #from random import randint
 
 app = Flask(__name__, static_url_path='/static')
-#firebase = firebase.FirebaseApplication('https://gruberdb-d230e.firebaseio.com/')
+firebase = firebase.FirebaseApplication('https://gruberdb-d230e.firebaseio.com/')
 #array of stuff in database portion, not yet modifying, anything from database, should work on
-#result = firebase.get('/Recipes/Banana Pancake/Ingredients', None)
+
 
 @app.route("/")
 def index():
-    return render_template(
+	result = firebase.get('/Recipes/Banana Pancake/Ingredients', None)
+	
+	return render_template(
 		'index.html',**locals())
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+	app.run(host='0.0.0.0', port=80)
 
+def display():
+	if request.form['displaydata'] == "Let's Get Started!":
+		print ("test")
+
+#def formatRecipe():
+#	result = firebase.get('/Recipes/Banana Pancake/Ingredients', None)
+#	size = len(result)
+#	print (size)
 
 #return "Flask App!"
  

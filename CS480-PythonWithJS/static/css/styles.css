@@ -1,0 +1,49 @@
+* body {
+  margin: 0px;
+  background: #F6F7EB;
+}
+#filler {
+min-height: 700px;
+}
+
+header {
+  margin: 0px;
+}
+
+.menus {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  background-color: #8A6552;
+}
+.menus a {
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 0px 20px;
+  text-align: center;
+  color: #FFE0B5;
+  text-decoration: none;
+}
+
+/* FOOTER ATTRIBUTES */
+footer {
+  position: absolute;
+  bottom: auto;
+  width: 100%;
+  padding: 10 20;
+  background: #788475;
+}
+footer h5 {
+  margin: 0;
+}
+footer p {
+  font-size: 12;
+  text-align: left;
+  margin: 0;
+  padding-left: 15;
+}
+.column {
+  float: left;
+  width: 50%;
+}

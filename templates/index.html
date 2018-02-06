@@ -18,9 +18,9 @@
 	
 	<button onclick="displayFunction()">Let's Get Started!</button>
 	<button link="pages/profile.html">View Profile</button>
-	<p id="loader">
+	<pre id="loader">
 		<!-- empty -->
-	</p>
+	</pre>
 
 	<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
 
@@ -36,7 +36,7 @@
 	};
 	firebase.initializeApp(config);
 	const preObject = document.getElementById("loader");
-	var dbRefObject = firebase.database().ref().child('Recipes/Banana Pancake/Ingredients');
+	var dbRefObject = firebase.database().ref().child('Recipes');
 	function displayFunction() {
     dbRefObject.on('value', snap => {
 		preObject.innerHTML = JSON.stringify(snap.val(), null, 3);

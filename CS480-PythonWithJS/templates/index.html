@@ -3,30 +3,42 @@
 
 <head>
     <!-- site title and icon -->
-    <title>:edwin:</title>
-    <link rel="icon" href="../static/images/favicon.ico"/>
+    <title>Grüber</title>
+    <link rel="icon" href="../static/images/favicon.png"/>
     <!-- metadata -->
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../static/css/styles.css"/>
 </head>
 
 <body>
+  <!-- ASIDE -->
+  <div class="aside">
+    <p>
+      Content goes here!
+    </p>
+    <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
+  </div>
+
   <!-- HEADER -->
   <header>
-    <img src="../static/images/gruber_header.png" alt="ingredients_image" width="100%"/>
+    <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+    <input type="text" class="signin" placeholder="Sign In!"/>
+    <input type="text" class="signin" placeholder="Password"/>
   </header>
+
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
-    <input type="text" placeholder="Search Recipes"/>
+    <input type="text" id="recipe_search" placeholder="Search Recipes"/>
   </div>
 
+
   <!-- BODY -->
-  <div id="filler">
+  <div id=content>
     <pre id="loader">
-      <!-- empty text dump -->
+    <!-- empty text dump -->
     </pre>
   </div>
 

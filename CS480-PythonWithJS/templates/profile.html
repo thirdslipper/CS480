@@ -17,12 +17,19 @@
   </header>
   <!-- NAV BAR -->
   <div class="menus">
-    <a href="index.html">Home</a>
+    <a href="/">Home</a>
     <a onclick="displayFunction()">MyRecipes</a>
     <!-- <a>View Profile</a> -->
   </div>
 
-<div id="filler"></div>
+  <!-- BODY -->
+  <div id="filler">
+    <pre id="loader">
+      <!-- empty text dump -->
+    </pre>
+  </div>
+
+  
 
   <!-- FOOTER -->
   <footer>
@@ -60,6 +67,9 @@
   firebase.initializeApp(config);
   </script>
   <script src="../static/js/recipe.js"></script>
+  <script src="../static/js/profile.js"></script>
+  <script> displayProfile() </script>
+
 
 </body>
 

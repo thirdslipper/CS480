@@ -1,10 +1,10 @@
 // create data dump
 
-//loader element <p>
+//loader element <pre>
 const preObject = document.getElementById("loader");
 
 //firebase object
-var dbRefObject = firebase.database().ref().child('Recipes');
+var dbRefObject = firebase.database().ref().child('User Profiles');
 
 //onclick function
 function displayFunction() {

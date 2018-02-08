@@ -17,10 +17,19 @@
   </header>
   <!-- NAV BAR -->
   <div class="menus">
-    <a href="index.html">Home</a>
+    <a href="/">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
     <input type="text" placeholder="Search Recipes"/>
+  </div>
+
+  <!-- Profile Login -->
+  <div class="login">
+    <form action="profile.html">
+	Profile login: <br>
+	Username: <input type="text" username="Username"/><br>
+	Password: <input type="text" passwordplaceholder="Password"><br>
+	<input type="submit" value="Submit" onclick="displayProfile()">
   </div>
 
   <!-- BODY -->
@@ -63,9 +72,11 @@
     storageBucket: "gruberdb-d230e.appspot.com",
     messagingSenderId: "144586333049"
   };
+  
   firebase.initializeApp(config);
   </script>
   <script src="../static/js/recipe.js"></script>
+  <script>// src="../static/js/profile.js"></script>
 
 </body>
 

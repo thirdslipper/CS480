@@ -3,7 +3,7 @@
 
 <head>
     <!-- site title and icon -->
-    <title>:edwin:</title>
+    <title>Grüber</title>
     <link rel="icon" href="../static/images/favicon.ico"/>
     <!-- metadata -->
     <meta charset="UTF-8"/>
@@ -11,22 +11,31 @@
 </head>
 
 <body>
+  <!-- ASIDE -->
+  <div class="aside">
+    <p>
+      hello uglies
+    </p>
+  </div>
+
   <!-- HEADER -->
   <header>
-    <img src="../static/images/gruber_header.png" alt="ingredients_image" width="100%"/>
+    <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
   </header>
+
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
-    <input type="text" placeholder="Search Recipes"/>
+    <input type="text" id="recipe_search" placeholder="Search Recipes"/>
   </div>
 
+
   <!-- BODY -->
-  <div id="filler">
+  <div id=content>
     <pre id="loader">
-      <!-- empty text dump -->
+    <!-- empty text dump -->
     </pre>
   </div>
 

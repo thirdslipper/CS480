@@ -23,14 +23,28 @@
     <input type="text" placeholder="Search Recipes"/>
   </div>
 
+  <div id="firebaseui-auth-container"></div>
+
   <!-- Profile Login -->
   <div class="login">
-    <form action="profile.html">
-	Profile login: <br>
-	Username: <input type="text" username="Username"/><br>
-	Password: <input type="text" passwordplaceholder="Password"><br>
-	<input type="submit" value="Submit" onclick="displayProfile()">
+    <form action="/profile.html">
+    	Profile login: <br>
+    	Username: <input type="text" username="Username"/><br>
+    	Password: <input type="text" passwordplaceholder="Password"><br>
+    	<input type="submit" value="Submit" onclick="displayProfile()">
+    </form>
   </div>
+
+  <!-- Profile Creation Temp -->
+  <div class="createAcc">
+    <form action="/profile.html">
+      Profile Create: <br>
+      Username: <input type="text" id="createusername" name="Username"/><br>
+      Password: <input type="text" id="createpassword" name="Password"><br>
+      <input type="submit" value="Submit" onclick="createProfile()">
+    </form>
+  </div>
+
 
   <!-- BODY -->
   <div id="filler">
@@ -61,20 +75,42 @@
   </footer>
 
   <!-- SCRIPTS -->
+  //initialize app
   <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  //initilize auth
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+
   <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",
-    authDomain: "gruberdb-d230e.firebaseapp.com",
-    databaseURL: "https://gruberdb-d230e.firebaseio.com",
-    projectId: "gruberdb-d230e",
-    storageBucket: "gruberdb-d230e.appspot.com",
-    messagingSenderId: "144586333049"
-  };
-  
-  firebase.initializeApp(config);
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",
+      authDomain: "gruberdb-d230e.firebaseapp.com",
+      databaseURL: "https://gruberdb-d230e.firebaseio.com",
+      projectId: "gruberdb-d230e",
+      storageBucket: "gruberdb-d230e.appspot.com",
+      messagingSenderId: "144586333049"
+    };
+    
+    firebase.initializeApp(config);
   </script>
+  
+  //authentication snippet
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
+  
+  <script type="text/javascript">
+      var uiConfig = {
+        signInSuccessUrl: '/profile.html',
+        signInOptions: [
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        //tosUrl : '/tos.html'
+      };
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+
   <script src="../static/js/recipe.js"></script>
   <script>// src="../static/js/profile.js"></script>
 

@@ -11,3 +11,9 @@ function displayProfile() {
     preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
   });
 }
+
+function createProfile() {
+		//get user/pass from creation text boxes in home page
+	var username = document.getElementById("createusername").value;
+	var password = document.getElementById("createpassword").value;
+}

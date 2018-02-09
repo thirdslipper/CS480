@@ -4,7 +4,7 @@
 const preObject = document.getElementById("loader");
 
 //default search term
-var searchTerm = "Recipes";
+var searchTerm = "Recipes/";
 
 //recipe search on 'enter' function
 var searchInput = document.getElementById("recipe_search");
@@ -24,6 +24,7 @@ function displayFunction() {
 }
 
 function searchRecipes() {
-  searchTerm = document.getElementById("recipe_search").value;
+  searchTerm += document.getElementById("recipe_search").value;
   displayFunction();
+  searchTerm = "Recipes/"
 }

@@ -1,0 +1,28 @@
+
+Create a login prompt in the upper right corner
+	- input username
+	- input password [placeholder]
+	- submit button
+	
+	- Submit: save username to a variable. Search database profiles for a match.
+		- return error prompt if username not found
+	- On "my profile" selection, run a script.
+		- display profile for this saved username
+		- if not logged in, return error prompt.
+		
+		
+	- "View Profile" defaults to your own profile.
+		- Contains search box to look at another's profile
+	- If you are not signed in yet, leads to a blank page (& search feature).
+	
+<input type="submit" value="Submit" onclick="displayProfile()">
+	modify: accept input {{username}}
+		
+		
+- rename Show Recipe's onclick "displayFunction()"
+	
+	<script>
+	function myFunction() {
+	document.getElementById("myText").value = "   "
+	}
+	</script>

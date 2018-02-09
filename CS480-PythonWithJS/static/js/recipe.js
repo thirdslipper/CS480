@@ -4,7 +4,7 @@
 const preObject = document.getElementById("loader");
 
 //firebase object
-var dbRefObject = firebase.database().ref().child('User Profiles');
+var dbRefObject = firebase.database().ref().child('Recipes');
 
 //onclick function
 function displayFunction() {

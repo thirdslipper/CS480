@@ -21,9 +21,19 @@
 
   <!-- HEADER -->
   <header>
-    <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
-    <input type="text" class="signin" placeholder="Sign In!"/>
-    <input type="text" class="signin" placeholder="Password"/>
+    <!-- LEFT -->
+    <div class="header">
+    </div>
+    <!-- CENTER -->
+    <div class="header">
+      <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+    </div>
+    <!-- RIGHT -->
+    <div class="header">
+      <input type="text" class="signin" placeholder="Sign In!"/>
+      <input type="text" class="signin" placeholder="Password"/>
+      <button class="signin">New User</button>
+    </div>
   </header>
 
   <!-- NAV BAR -->
@@ -31,7 +41,10 @@
     <a href="index.html">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
-    <input type="text" id="recipe_search" placeholder="Search Recipes"/>
+    <!-- <form id="nav_search"> -->
+      <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
+      <input type="text" id="recipe_search" placeholder="Search Recipes"/>
+    <!-- </form> -->
   </div>
 
 

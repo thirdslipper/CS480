@@ -20,12 +20,15 @@ header {
   justify-content: center;
   background: #243010;
 }
-header img {
-  height: 80%;
+.header {
+  width: 33%;
+}
+div img {
+  height: 50px;
   width: auto;
 }
 .signin {
-  align-items: flex-end;
+  float: left;
 }
 
 /* NAVBAR */
@@ -51,6 +54,11 @@ header img {
   float: right;
   margin-right: 2%;
 }
+.menus img {
+  height: 20px;
+  float: right;
+  margin-right: 2%;
+}
 
 /* ASIDE */
 .aside {
@@ -58,6 +66,7 @@ header img {
   position: fixed;
   display: flex;
   flex-direction: column;
+  align-items: center;
   background: #F6F7EB;
   border-right-style: dashed;
   border-right-width: medium;
@@ -69,10 +78,13 @@ header img {
 .aside p {
   margin: 10%;
 }
+#ingredient_search {
+  width: 80%;
+}
 
 /* CONTENT */
 #content {
-  max-width: 80%;
+  max-width: 20%;
   margin-left: 19%;
   margin-top: 8%;
   margin-bottom: 8%;

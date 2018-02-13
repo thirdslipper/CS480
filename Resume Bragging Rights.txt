@@ -1,6 +1,0 @@
-RESUME BRAGGING RIGHTS: 
-
-- minor usage skill in Python, HTML, and javascript
-- using python and flask to host a website
-- collaborated with a group via github
-- 

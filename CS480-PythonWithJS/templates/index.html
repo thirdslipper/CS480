@@ -1,33 +1,57 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
     <!-- site title and icon -->
-    <title>:edwin:</title>
-    <link rel="icon" href="../static/images/favicon.ico"/>
+    <title>Grüber</title>
+    <link rel="icon" href="../static/images/favicon.png"/>
     <!-- metadata -->
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../static/css/styles.css"/>
 </head>
 
 <body>
+  <!-- ASIDE -->
+  <div class="aside">
+    <p>
+      Content goes here!
+    </p>
+    <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
+  </div>
+
   <!-- HEADER -->
   <header>
-    <img src="../static/images/gruber_header.png" alt="ingredients_image" width="100%"/>
+    <!-- LEFT -->
+    <div class="header">
+    </div>
+    <!-- CENTER -->
+    <div class="header">
+      <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+    </div>
+    <!-- RIGHT -->
+    <div class="header">
+      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
+      <input type="text" class="signin" id="Password" placeholder="Password"/>
+      <button class="signin" onclick="ProfileSearch()">New User</button>
+    </div>
   </header>
+
   <!-- NAV BAR -->
   <div class="menus">
-    <a href="/">Home</a>
+    <a href="index.html">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
-    <input type="text" placeholder="Search Recipes"/>
+    <!-- <form id="nav_search"> -->
+      <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
+      <input type="text" id="recipe_search" placeholder="Search Recipes"/>
+    <!-- </form> -->
   </div>
 
   <div id="firebaseui-auth-container"></div>
 
   <!-- Profile Login -->
   <div class="login">
-    <form action="/profile.html">
+    <form action="profile.html">
     	Profile login: <br>
     	Username: <input type="text" username="Username"/><br>
     	Password: <input type="text" passwordplaceholder="Password"><br>
@@ -37,7 +61,7 @@
 
   <!-- Profile Creation Temp -->
   <div class="createAcc">
-    <form action="/profile.html">
+    <form action="profile.html">
       Profile Create: <br>
       Username: <input type="text" id="createusername" name="Username"/><br>
       Password: <input type="text" id="createpassword" name="Password"><br>
@@ -47,9 +71,9 @@
 
 
   <!-- BODY -->
-  <div id="filler">
+  <div id=content>
     <pre id="loader">
-      <!-- empty text dump -->
+    <!-- empty text dump -->
     </pre>
   </div>
 
@@ -109,10 +133,18 @@
       };
       var ui = new firebaseui.auth.AuthUI(firebase.auth());
       ui.start('#firebaseui-auth-container', uiConfig);
+
   </script>
 
   <script src="../static/js/recipe.js"></script>
-  <script>// src="../static/js/profile.js"></script>
+  <script src="../static/js/profile.js"></script>
+
+  <script>
+    function ProfileSearch() {
+	  var entry = document.getElementById("Username").value;
+      displayProfile(entry);
+	}
+  </script>
 
 </body>
 

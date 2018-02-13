@@ -11,9 +11,15 @@ function displayProfile() {
 }
 
 function createProfile() {
-		//get user/pass from creation text boxes in home page
-	var username = document.getElementById("createusername").value;
-	var password = document.getElementById("createpassword").value;
+	var email = document.getElementById("createEmail").value;
+	var password = document.getElementById("createPassword").value;
+	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error)){
+		//handle error
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		//https://firebase.google.com/docs/reference/js/firebase.auth.Auth?authuser=0#createUserAndRetrieveDataWithEmailAndPassword
+	}
+}
 
 function displayAllProfile() {
     var dbRefObject = firebase.database().ref().child('User Profiles');   //firebase object

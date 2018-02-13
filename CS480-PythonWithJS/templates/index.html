@@ -30,8 +30,8 @@
     </div>
     <!-- RIGHT -->
     <div class="header">
-      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
-      <input type="text" class="signin" id="Password" placeholder="Password"/>
+      <input type="text" class="signin" id="createEmail" placeholder="Enter Email!"/>
+      <input type="text" class="signin" id="createPassword" placeholder="Enter Password"/>
       <button class="signin" onclick="ProfileSearch()">New User</button>
     </div>
   </header>
@@ -47,9 +47,9 @@
     <!-- </form> -->
   </div>
 
-  <div id="firebaseui-auth-container"></div>
+<!--  <div id="firebaseui-auth-container"></div> -->
 
-  <!-- Profile Login -->
+  <!-- Profile Login 
   <div class="login">
     <form action="profile.html">
     	Profile login: <br>
@@ -59,7 +59,7 @@
     </form>
   </div>
 
-  <!-- Profile Creation Temp -->
+  Profile Creation Temp 
   <div class="createAcc">
     <form action="profile.html">
       Profile Create: <br>
@@ -68,7 +68,7 @@
       <input type="submit" value="Submit" onclick="createProfile()">
     </form>
   </div>
-
+-->
 
   <!-- BODY -->
   <div id=content>
@@ -102,7 +102,7 @@
   //initialize app
   <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
   //initilize auth
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+<!--  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script> -->
 
   <script>
     // Initialize Firebase
@@ -117,11 +117,12 @@
     
     firebase.initializeApp(config);
   </script>
-  
+
+<!-- Not using Firebase UI   
   //authentication snippet
   <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
-  
+
   <script type="text/javascript">
       var uiConfig = {
         signInSuccessUrl: '/profile.html',
@@ -135,6 +136,7 @@
       ui.start('#firebaseui-auth-container', uiConfig);
 
   </script>
+-->
 
   <script src="../static/js/recipe.js"></script>
   <script src="../static/js/profile.js"></script>

@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='/static')
 #firebase = firebase.FirebaseApplication('https://gruberdb-d230e.firebaseio.com/')
 #array of stuff in database portion, not yet modifying, anything from database, should work on
 
-
+@app.route('/index.html')
 @app.route("/")
 def index():
 #	result = firebase.get('/Recipes/Banana Pancake/Ingredients', None)	

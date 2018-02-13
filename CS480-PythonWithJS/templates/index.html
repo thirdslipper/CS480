@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
@@ -30,9 +30,9 @@
     </div>
     <!-- RIGHT -->
     <div class="header">
-      <input type="text" class="signin" placeholder="Sign In!"/>
-      <input type="text" class="signin" placeholder="Password"/>
-      <button class="signin">New User</button>
+      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
+      <input type="text" class="signin" id="Password" placeholder="Password"/>
+      <button class="signin" onclick="ProfileSearch()">New User</button>
     </div>
   </header>
 
@@ -91,6 +91,14 @@
   firebase.initializeApp(config);
   </script>
   <script src="../static/js/recipe.js"></script>
+  <script src="../static/js/profile.js"></script>
+
+  <script>
+    function ProfileSearch() {
+	  var entry = document.getElementById("Username").value;
+      displayProfile(entry);
+	}
+  </script>
 
 </body>
 

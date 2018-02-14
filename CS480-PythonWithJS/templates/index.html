@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <script src="../static/js/profile.js"></script>
   <!-- ASIDE -->
   <div class="aside">
     <p>
@@ -29,10 +30,11 @@
       <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
     </div>
     <!-- RIGHT -->
-    <div class="header">
-      <input type="text" class="signin" id="createEmail" placeholder="Enter Email!"/>
-      <input type="text" class="signin" id="createPassword" placeholder="Enter Password"/>
-      <button class="signin" onclick="ProfileSearch()">New User</button>
+    <div class="header" id="app">
+      <input type="text" class="signin" id="createEmail" placeholder="Email!"/>
+      <input type="password" class="signin" id="createPassword" placeholder="Password"/>
+      <button class="signin" onclick="createProfile()">New User</button>
+      <!-- former profilesearch func -->
     </div>
   </header>
 
@@ -41,6 +43,7 @@
     <a href="index.html">Home</a>
     <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
+    <a href="signup.html">Sign Up</a>
     <!-- <form id="nav_search"> -->
       <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
       <input type="text" id="recipe_search" placeholder="Search Recipes"/>
@@ -139,7 +142,6 @@
 -->
 
   <script src="../static/js/recipe.js"></script>
-  <script src="../static/js/profile.js"></script>
 
   <script>
     function ProfileSearch() {

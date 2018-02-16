@@ -18,9 +18,27 @@ searchInput.addEventListener("keyup", function(event) {
 function displayFunction() {
   //firebase object
   var dbRefObject = firebase.database().ref().child(searchTerm);
-  dbRefObject.on('value', snap => {
-    preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
+  // dbRefObject.on('value', snap => {
+  //   preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
+  // });
+  var dbIngreObject = dbRefObject.child('Ingredients/');
+  var oiegm;
+  var ul = $('<ul>').appendTo('body');
+  //var json = { items: ['item 1', 'item 2', 'item 3'] };
+  dbIngreObject.on('value', snap => {
+    snap.forEach(function(child){
+      ul.append(
+        $(document.createElement('li')).text(child.key +": "+child.val())
+      );
+
+    });
   });
+  // $(dbIngreObject).forEach(function(snapshot) {
+  //   ul.append(
+  //     $(document.createElement('li')).text(snapshot)
+  //   );
+  // });
+  //preObject.innerHTML = ul;
 }
 
 function searchRecipes() {

@@ -22,14 +22,29 @@ function displayFunction() {
   //   preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
   // });
   var dbIngreObject = dbRefObject.child('Ingredients/');
-  var ul = $('<ul>').appendTo('body');
+  var dbInstrObject = dbRefObject.child('Instructions/');
+
+  //$(preObject).remove();
   //var json = { items: ['item 1', 'item 2', 'item 3'] };
+  var title = $('<p>').appendTo(preObject);
+    title.append(searchTerm.substring(8));
+  var picurl = $('<p>').appendTo(preObject);
+      picurl.append("Picture of tasty food go here.");
+  var ul = $('<ul>').appendTo(preObject);
+  var ulnon = $('<ul style="list-style-type:none">').appendTo(preObject);
+
   dbIngreObject.on('value', snap => {
     snap.forEach(function(child){
       ul.append(
-        $(document.createElement('li')).text(child.key +": "+child.val())
+        $(document.createElement('li')).html(child.val())
       );
-
+    });
+  });
+  dbInstrObject.on('value', snap => {
+    snap.forEach(function(child){
+      ulnon.append(
+        $(document.createElement('li')).html(child.key +": "+child.val())
+      );
     });
   });
   // $(dbIngreObject).forEach(function(snapshot) {

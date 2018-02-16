@@ -1,0 +1,135 @@
+/* COLORS             */
+/* Off-White  #F6F7EB */
+/* Pale Green #788475 */
+/* Green      #243010 */
+/* Tan        #FFE0B5 */
+/* Brown      #8A6552 */
+
+/* PAGE SETUP */
+* body {
+  margin: 0px;
+  background: #F6F7EB;
+}
+.flex-container {
+    display: flex;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  position: fixed;
+  top: 0px;
+  height: 8%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #243010;
+}
+.header {
+  width: 33%;
+  height: 90%;
+}
+div img {
+  height: 100%;
+  width: auto;
+}
+.signin {
+  float: left;
+}
+
+/* NAVBAR */
+.menus {
+  overflow: hidden;
+  position: fixed;
+  max-height: 4%;
+  top: 8%;
+  width: 100%;
+  margin: 0px;
+  padding: 5px;
+  background-color: #8A6552;
+}
+.menus a {
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 0px 20px;
+  text-align: center;
+  color: #FFE0B5;
+  text-decoration: none;
+}
+#recipe_search {
+  float: right;
+  margin-right: 8px;
+}
+.menus img {
+  height: 20px;
+  float: right;
+  margin-right: 2%;
+}
+
+/* BODY SETUP */
+.main_content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 7%;
+  max-width: 100%;
+  min-height: 75%;
+}
+
+/* ASIDE */
+.aside {
+  /* float: left; */
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #F6F7EB;
+  border-right-style: dashed;
+  border-right-width: medium;
+  border-right-color: #788475;
+  width: 18%;
+  min-height: inherit;
+}
+.aside p {
+  margin: 10%;
+}
+#ingredient_search {
+  width: 80%;
+}
+
+/* CONTENT */
+#content {
+  float: left;
+  margin-left: 18%;
+  margin-bottom: 8%;
+  padding-left: 2%;
+  /* background: blue; */
+  /* word-wrap: break-word; */
+}
+
+/* FOOTER */
+footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  max-height: 10%;
+  padding: 10px 20px;
+  background: #788475;
+}
+footer h5 {
+  margin: 0;
+}
+footer p {
+  font-size: 12;
+  text-align: left;
+  margin: 0;
+  padding-left: 15;
+}
+.column {
+  float: left;
+  width: 50%;
+}

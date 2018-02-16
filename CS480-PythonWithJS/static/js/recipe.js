@@ -23,7 +23,7 @@ function displayFunction() {
   // });
   var dbIngreObject = dbRefObject.child('Ingredients/');
   var dbInstrObject = dbRefObject.child('Instructions/');
-
+  var hold;
   //$(preObject).remove();
   //var json = { items: ['item 1', 'item 2', 'item 3'] };
   var title = $('<p>').appendTo(preObject);

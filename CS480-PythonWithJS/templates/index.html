@@ -13,9 +13,24 @@
 <body>
   <!-- ASIDE -->
   <div class="aside">
-    <p>
+
+    <div id="firebaseui-auth-container"></div>
+
+
+
+      <!-- Profile Creation Temp 
+      <div class="createAcc">
+        <form action="profile.html">
+          Profile Create: <br>
+          Username: <input type="text" id="createusername" name="Username"/><br>
+          Password: <input type="text" id="createpassword" name="Password"><br>
+          <input type="submit" value="Submit" onclick="createProfile()">
+        </form>
+      </div> -->
+    <p> 
       Content goes here!
     </p>
+
     <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
   </div>
 
@@ -49,6 +64,7 @@
 
 
   <!-- BODY -->
+
   <div id=content>
     <pre id="loader">
     <!-- empty text dump -->
@@ -77,7 +93,11 @@
   </footer>
 
   <!-- SCRIPTS -->
+  //initialize app
   <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  //initialize auth
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+
   <script>
   // Initialize Firebase
   var config = {
@@ -90,7 +110,28 @@
   };
   firebase.initializeApp(config);
   </script>
+<<<<<<< HEAD
   <script src="../static/js/jquery-3.3.1.js"></script>
+=======
+
+  //authentication snippet
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
+
+  <script type="text/javascript">
+      var uiConfig = {
+        signInSuccessUrl: '/profile.html',
+        signInOptions: [
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID
+        ],
+        //tosUrl : '/tos.html'
+      };
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+
+>>>>>>> 113f585e5b23c1365ce64d2a673ea189feb07b3c
   <script src="../static/js/recipe.js"></script>
   <script src="../static/js/profile.js"></script>
 

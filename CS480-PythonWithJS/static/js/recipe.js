@@ -22,7 +22,6 @@ function displayFunction() {
   //   preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
   // });
   var dbIngreObject = dbRefObject.child('Ingredients/');
-  var oiegm;
   var ul = $('<ul>').appendTo('body');
   //var json = { items: ['item 1', 'item 2', 'item 3'] };
   dbIngreObject.on('value', snap => {

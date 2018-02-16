@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- site title and icon -->
+    <title>MyProfile</title>
+    <link rel="icon" href="../static/images/favicon.png"/>
+    <!-- metadata -->
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/css/styles.css"/>
+</head>
+
+<body>
+  <!-- ASIDE -->
+  <div class="aside">
+
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <img src="../static/images/gruber_header.png" alt="Gruber Logo" width="100%"/>
+  </header>
+
+  <!-- NAV BAR -->
+  <div class="menus">
+    <a href="index.html">Home</a>
+    <a onclick="displayFunction()">MyRecipes</a>
+  </div>
+
+  <!-- BODY -->
+  <div id="filler"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="column">
+      <h5>Team Members:</h5>
+      <p>
+        Andrew
+      </p><p>
+        Jorge
+      </p><p>
+        Colin
+      </p><p>
+        Donovan
+      </p><p>
+        SueAnn
+      </p>
+    </div>
+    <div class="column">
+      <h5>-About Us-</h5>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",
+    authDomain: "gruberdb-d230e.firebaseapp.com",
+    databaseURL: "https://gruberdb-d230e.firebaseio.com",
+    projectId: "gruberdb-d230e",
+    storageBucket: "gruberdb-d230e.appspot.com",
+    messagingSenderId: "144586333049"
+  };
+  firebase.initializeApp(config);
+  </script>
+  <script src="../static/js/recipe.js"></script>
+
+</body>
+
+</html>

@@ -10,6 +10,15 @@
   margin: 0px;
   background: #F6F7EB;
 }
+.flex-container {
+    display: flex;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+ /* HEADER */
 header {
   display: flex;
   position: fixed;
@@ -22,9 +31,10 @@ header {
 }
 .header {
   width: 33%;
+  height: 90%;
 }
 div img {
-  height: 50px;
+  height: 100%;
   width: auto;
 }
 .signin {
@@ -35,6 +45,7 @@ div img {
 .menus {
   overflow: hidden;
   position: fixed;
+  max-height: 4%;
   top: 8%;
   width: 100%;
   margin: 0px;
@@ -52,7 +63,7 @@ div img {
 }
 #recipe_search {
   float: right;
-  margin-right: 2%;
+  margin-right: 8px;
 }
 .menus img {
   height: 20px;
@@ -60,9 +71,18 @@ div img {
   margin-right: 2%;
 }
 
+/* BODY SETUP */
+.main_content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 7%;
+  max-width: 100%;
+  min-height: 75%;
+}
+
 /* ASIDE */
 .aside {
-  float: left;
+  /* float: left; */
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -72,8 +92,8 @@ div img {
   border-right-width: medium;
   border-right-color: #788475;
   width: 18%;
-  top: 11%;
-  bottom: 10%;
+  top: 14%;
+  min-height: inherit;
 }
 .aside p {
   margin: 10%;
@@ -83,11 +103,16 @@ div img {
 }
 
 /* CONTENT */
+/* NEEDS WORK: resize properly to different size windows. */
 #content {
-  max-width: 20%;
-  margin-left: 19%;
-  margin-top: 8%;
+  float: left;
+  margin-left: 18%;
+  margin-top: 2%;
   margin-bottom: 8%;
+  padding-left: 2%;
+  /* background: blue; */
+  /* word-wrap: break-word; */
+
 }
 
 /* FOOTER */

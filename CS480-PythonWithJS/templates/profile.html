@@ -11,11 +11,6 @@
 </head>
 
 <body>
-  <!-- ASIDE -->
-  <div class="aside">
-
-  </div>
-
   <!-- HEADER -->
   <header>
     <img src="../static/images/gruber_header.png" alt="Gruber Logo" width="100%"/>
@@ -24,11 +19,16 @@
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
-    <a onclick="displayFunction()">MyRecipes</a>
+    <a onclick="searchRecipes1()">MyRecipes</a>
+    <a onclick="uploadRecipe()">New Recipe</a>
+  </div>
+
+  <!-- ASIDE -->
+  <div class="aside">
   </div>
 
   <!-- BODY -->
-  <div id="filler"></div>
+  <div id="loader"></div>
 
   <!-- FOOTER -->
   <footer>

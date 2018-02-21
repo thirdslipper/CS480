@@ -3,7 +3,7 @@
 
 <head>
     <!-- site title and icon -->
-    <title>Grüber</title>
+    <title>My Profile</title>
     <link rel="icon" href="../static/images/favicon.png"/>
     <!-- metadata -->
     <meta charset="UTF-8"/>
@@ -23,39 +23,20 @@
     </div>
     <!-- RIGHT -->
     <div class="header">
-      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
-      <input type="text" class="signin" id="Password" placeholder="Password"/>
-      <button class="signin" onclick="ProfileSearch()">New User</button>
+      <button class="signin" onclick="ProfileSearch()">Sign Out</button>
     </div>
   </header>
 
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
-    <a onclick="displayFunction()">Show Recipes</a>
-    <a href="profile.html">View Profile</a>
-    <!-- <form id="nav_search"> -->
-      <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes1()"/>
-      <input type="text" id="recipe_search" placeholder="Search Recipes"/>
-    <!-- </form> -->
+    <a onclick="searchRecipes1()">MyRecipes</a>
+    <a onclick="uploadRecipe()">New Recipe</a>
   </div>
 
 <div class="main_content">
   <!-- ASIDE -->
-  <div class="aside">
-    <div id="firebaseui-auth-container"></div>
-      <!-- Profile Creation Temp
-      <div class="createAcc">
-        <form action="profile.html">
-          Profile Create: <br>
-          Username: <input type="text" id="createusername" name="Username"/><br>
-          Password: <input type="text" id="createpassword" name="Password"><br>
-          <input type="submit" value="Submit" onclick="createProfile()">
-        </form>
-      </div> -->
-    <p>Content goes here!</p>
-    <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
-  </div>
+  <div class="aside"></div>
 
   <!-- BODY -->
   <div id=content>

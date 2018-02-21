@@ -58,7 +58,7 @@ function display_thumbnail() {
 
 function searchRecipes1() {
   emptyScreen();
-  var searchWord = document.getElementById("recipe_search").value;
+  var searchWord = document.getElementById("recipe_search").value.toLowerCase();
   var dbRefObject = firebase.database().ref().child('Recipes/');
   dbRefObject.on('value', snap => {
     snap.forEach(function(child){
@@ -68,7 +68,7 @@ function searchRecipes1() {
       dbIngreObject.on('value', snap => {
         snap.forEach(function(child){
           // var n = child.val().search(searchWord);
-          var n = child.key.search(searchWord);
+          var n = child.key.toLowerCase().search(searchWord);
           if (flag != false) {
             //if 'found' true, do nothing
           } else {

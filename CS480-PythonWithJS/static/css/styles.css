@@ -18,7 +18,7 @@
     flex-wrap: nowrap;
 }
 
- /* HEADER */
+/* HEADER */
 header {
   display: flex;
   position: fixed;
@@ -92,7 +92,6 @@ div img {
   border-right-width: medium;
   border-right-color: #788475;
   width: 18%;
-  top: 14%;
   min-height: inherit;
 }
 .aside p {
@@ -103,16 +102,23 @@ div img {
 }
 
 /* CONTENT */
-/* NEEDS WORK: resize properly to different size windows. */
 #content {
   float: left;
   margin-left: 18%;
-  margin-top: 2%;
   margin-bottom: 8%;
   padding-left: 2%;
   /* background: blue; */
   /* word-wrap: break-word; */
-
+}
+.recipe_display {
+  display: flex;
+  background: DodgerBlue;
+}
+.recipe_display div {
+  background: #f1f1f1;
+  margin: 12px;
+  padding: 10px 20px;
+  font-size: 15px;
 }
 
 /* FOOTER */

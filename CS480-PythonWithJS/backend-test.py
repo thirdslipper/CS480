@@ -17,5 +17,10 @@ def userProfile(name):
     return render_template(
         'profile.html', name=name)
 
+@app.route("/addRecipe.html")
+def addRecipe():
+    return render_template(
+        'addRecipe.html')
+
 if __name__ == "__main__":
     app.run()

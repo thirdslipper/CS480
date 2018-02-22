@@ -18,12 +18,24 @@ function displayFunction() {
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var dbIngreObject = dbRefObject.child('Ingredients/');
   var dbInstrObject = dbRefObject.child('Instructions/');
-  var hold;
+  //Added this to access the filename in database. Jorge
+  var dbPicObject = dbRefObject.child('picRef/');
+  //Added this to traverse the Recipe directory in the storage system. Jorge
+  var stPicObject = firebase.storage().ref().child('Recipes/');
+  //This is to get the value from picRef in database. Jorge
+  var fileURL = dbPicObject.on('value', function(snap){
+    return snap.val();
+  });
+  //This gets the getDownloadURL for the filename from searching in storage, if it worked. Jorge
+  var hold = stPicObject.child(fileURL).getDownloadURL();
+
   //$(preObject).remove();
   var title = $('<p>').appendTo(webPage);
       title.append(searchTerm.substring(8));
-  var picurl = $('<p>').appendTo(webPage);
-      picurl.append("Picture of tasty food go here.");
+  //This is the line that actually has the info, if you go to storage and get the download url, replace it with hold, it works. Jorge
+  var key = '<img src="'+ hold +'" style="width:100px;height:100px;">';
+  var picurl = $(key).appendTo(webPage);
+      //picurl.append("Picture of tasty food go here.");
   var ul = $('<ul>').appendTo(webPage);
   var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
 

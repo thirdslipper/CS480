@@ -22,3 +22,7 @@ function displayProfile(name) {
         preObject.innerHTML = JSON.stringify(snap.val(), null, 5);
     });
 }
+function ProfileSearch() {
+	var entry = document.getElementById("Username").value;
+	displayProfile(entry);
+}

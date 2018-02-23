@@ -24,11 +24,10 @@
     </div>
     <!-- RIGHT -->
     <div class="loaded" class="hidden">  <!-- display profile details top right-->
-      <div id="firebaseui-auth-container"></div>
       <div id="photo-container"></div>
       <div id="name"></div>
       <div id="email"></div>
- <!--     <button id="sign-out">Sign out</button> -->
+  <!--    <button id="sign-out">Sign out</button> -->
     </div>
   </header>
 
@@ -46,6 +45,7 @@
 <div class="main_content">
   <!-- ASIDE -->
   <div class="aside">
+    <div id="firebaseui-auth-container"></div> <!-- move later -->
     <p>Content goes here!</p>
     <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
   </div>
@@ -110,12 +110,12 @@
   <script type="text/javascript">
     var uiConfig = {
       signInFlow: 'popup',
-      signInSuccessUrl: '/settings.html',
+      signInSuccessUrl: '/profile.html',
       signInOptions: [
         {
           provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
           requireDisplayName: true
-        }
+        },
         firebase.auth.FacebookAuthProvider.PROVIDER_ID
       ],
       //tosUrl : '/tos.html'

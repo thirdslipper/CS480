@@ -59,12 +59,21 @@
 
   <!-- BODY -->
   <div id=content>
+  <div class="form_layout">
     <form action="/recipe.html" method="get">
-		Recipe name: <input type="text" name="name"><br>
-		Ingredients: <input type="textarea" rows="4" cols="50" name="ingredients"><br>
-		Instructions: <input type="textarea" name="instructions"><br>
+		Recipe name: <br><input type="text" name="name"><br>
+		
+		<div id="group-ingredients" class="group">
+		<label>Ingredients: </label><br>
+		<input type="text" name="ingredients1[]" placeholder="Ingredient Name">
+		<input type="text" name="ingredients2[]" placeholder="Quantity, and other details"><br>
+		</div>
+
 		<input type="submit" value="Submit">
+		<input type="button" value="Add Ingredient" onclick="newIngredient()">
+		<input type="button" value="Remove Ingredient" onclick="removeIngredient()">
 	</form>
+	</div>
   </div>
 </div>
 
@@ -131,6 +140,7 @@
   <script src="../static/js/recipe.js"></script>
   <script src="../static/js/profile.js"></script>
   <script src="../static/js/jquery-3.3.1.js"></script>
+  <script src="../static/js/addRecipe.js"></script>
 
   <script>
     function ProfileSearch() {

@@ -23,13 +23,9 @@ function displayFunction() {
   //Added this to traverse the Recipe directory in the storage system. Jorge
   var stPicObject = firebase.storage().ref('Recipes/');
   //This is to get the value from picRef in database. Jorge
-  var fileURL = dbPicObject.on('value', function(snap){
-    console.log("snap val is: " + snap.val());
-    fileURL = snap.val();
-  });
+
   //This gets the getDownloadURL for the filename from searching in storage, if it worked. Jorge
   //stPicObject.child(fileURL).getDownloadURL().then(function(url){
-    console.log("fileURL is: "+ fileURL);
   //}).catch(function(error){});
 
   //$(preObject).remove();
@@ -38,16 +34,17 @@ function displayFunction() {
   //This is the line that actually has the info, if you go to storage and get the download url, replace it with hold, it works. Jorge
   // var key = '<img src="'+ hold +'" style="width:100px;height:100px;">';
   // var picurl = $(key).appendTo(webPage);
-  console.log("here");
+  var picurl = $('').appendTo(webPage);
   var fileURL = dbPicObject.on('value', function(snap){
     console.log("snap val is: " + snap.val());
-
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
     console.log(url);
     console.log("haha debugging sucks");
-    var key = ('<img src="'+ url +'" style="width:300px;height:300px;">');
-    var picurl = $(key).appendTo(webPage);
+    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    console.log("here key: "+key);
+    $(key).appendTo(webPage);
+    //var picurl = $(key).appendTo(webPage);
   }).catch(function(error){});
   });
       //picurl.append("Picture of tasty food go here.");

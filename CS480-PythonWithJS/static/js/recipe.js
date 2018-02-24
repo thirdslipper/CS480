@@ -13,7 +13,7 @@ searchBar.addEventListener("keyup", function(event) {
 });
 
 //onclick function
-function displayFunction() {
+function displayFunction(){
   //firebase object
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var dbIngreObject = dbRefObject.child('Ingredients/');
@@ -40,10 +40,10 @@ function displayFunction() {
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
     console.log(url);
-    console.log("haha debugging sucks");
     var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
     console.log("here key: "+key);
     $(key).appendTo(webPage);
+
     //var picurl = $(key).appendTo(webPage);
   }).catch(function(error){});
   });
@@ -76,6 +76,101 @@ function displayFunction() {
   //preObject.innerHTML = ul;
 }
 
+function organizedDisplay(){
+  var dbRefObject = firebase.database().ref().child(searchTerm);
+  var hold = searchTerm;
+  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(webPage);
+  var title = $('<p>').appendTo(webPage);
+  var ul = $('<ul>').appendTo(webPage);
+  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+
+  loop(
+    function(){
+  var dbPicObject = dbRefObject.child('picRef/');
+  var stPicObject = firebase.storage().ref('Recipes/');
+  var fileURL = dbPicObject.on('value', function(snap){
+    console.log("snap val is: " + snap.val());
+
+  stPicObject.child(snap.val()).getDownloadURL().then(function(url){
+    console.log(url);
+    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    console.log("here key: "+key);
+    //$(key).appendTo(webPage);
+    pic.replaceWith(key);
+    console.log("PIC: "+pic);
+    hold = hold.substring(0, hold.length-1);
+    title.append(hold.substring(8));
+
+    //var picurl = $(key).appendTo(webPage);
+  }).catch(function(error){});
+  });
+},function(){
+
+  var dbIngreObject = dbRefObject.child('Ingredients/');
+  dbIngreObject.on('value', snap => {
+    snap.forEach(function(child){
+      ul.append(
+        $(document.createElement('li')).html(child.key + ": " + child.val())
+      );
+    });
+  });
+},function(){
+
+  var dbInstrObject = dbRefObject.child('Instructions/');
+
+  dbInstrObject.on('value', snap => {
+    snap.forEach(function(child){
+      ulnon.append(
+        $(document.createElement('li')).html(child.key +": "+child.val())
+      );
+    });
+  });
+}
+)}
+function organizedIngredients(callback){
+  var dbRefObject = firebase.database().ref().child(searchTerm);
+  var dbIngreObject = dbRefObject.child('Ingredients/');
+  var ul = $('<ul>').appendTo(webPage);
+  dbIngreObject.on('value', snap => {
+    snap.forEach(function(child){
+      ul.append(
+        $(document.createElement('li')).html(child.key + ": " + child.val())
+      );
+    });
+  });
+
+  callback();
+}
+function organizedInstructions(callback){
+  var dbRefObject = firebase.database().ref().child(searchTerm);
+  var dbInstrObject = dbRefObject.child('Instructions/');
+
+  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+  dbInstrObject.on('value', snap => {
+    snap.forEach(function(child){
+      ulnon.append(
+        $(document.createElement('li')).html(child.key +": "+child.val())
+      );
+      if (child.key == "Instruction 1") {
+        // document.getElementById("loader").innerHTML = "DETECTED!";
+      }
+    });
+  });
+  callback();
+}
+function loop() {
+    var args = arguments;
+    if (args.length <= 0)
+        return;
+    (function chain(i) {
+        if (i >= args.length || typeof args[i] !== 'function')
+            return;
+        window.setTimeout(function() {
+            args[i]();
+            chain(i + 1);
+        }, 1000);
+    })(0);
+}
 function display_thumbnail() {
   $thumbnails.append('<img src="firebase-storage/img1"/>');
 }
@@ -98,7 +193,8 @@ function searchRecipes1() {
           } else {
             if (n != -1) {
               searchTerm = "Recipes/" + dbRecipeObj.key + "/";
-              displayFunction();
+              //displayFunction();
+              organizedDisplay();
               // document.getElementById("loader").innerHTML = "Detected!";
               flag = true;
             } else {

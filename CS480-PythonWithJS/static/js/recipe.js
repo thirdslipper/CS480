@@ -13,6 +13,7 @@ searchBar.addEventListener("keyup", function(event) {
 });
 
 //onclick function
+//Deprecated
 function displayFunction(){
   //firebase object
   var dbRefObject = firebase.database().ref().child(searchTerm);
@@ -92,12 +93,10 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    console.log(url);
     var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
-    console.log("here key: "+key);
+    console.log("here is key: "+key);
     //$(key).appendTo(webPage);
     pic.replaceWith(key);
-    console.log("PIC: "+pic);
     hold = hold.substring(0, hold.length-1);
     title.append(hold.substring(8));
 
@@ -127,37 +126,6 @@ function organizedDisplay(){
   });
 }
 )}
-function organizedIngredients(callback){
-  var dbRefObject = firebase.database().ref().child(searchTerm);
-  var dbIngreObject = dbRefObject.child('Ingredients/');
-  var ul = $('<ul>').appendTo(webPage);
-  dbIngreObject.on('value', snap => {
-    snap.forEach(function(child){
-      ul.append(
-        $(document.createElement('li')).html(child.key + ": " + child.val())
-      );
-    });
-  });
-
-  callback();
-}
-function organizedInstructions(callback){
-  var dbRefObject = firebase.database().ref().child(searchTerm);
-  var dbInstrObject = dbRefObject.child('Instructions/');
-
-  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
-  dbInstrObject.on('value', snap => {
-    snap.forEach(function(child){
-      ulnon.append(
-        $(document.createElement('li')).html(child.key +": "+child.val())
-      );
-      if (child.key == "Instruction 1") {
-        // document.getElementById("loader").innerHTML = "DETECTED!";
-      }
-    });
-  });
-  callback();
-}
 function loop() {
     var args = arguments;
     if (args.length <= 0)

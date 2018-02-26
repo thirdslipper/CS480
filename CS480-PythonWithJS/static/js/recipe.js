@@ -13,17 +13,42 @@ searchBar.addEventListener("keyup", function(event) {
 });
 
 //onclick function
-function displayFunction() {
+//Deprecated
+function displayFunction(){
   //firebase object
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var dbIngreObject = dbRefObject.child('Ingredients/');
   var dbInstrObject = dbRefObject.child('Instructions/');
-  var hold;
+  //Added this to access the filename in database. Jorge
+  var dbPicObject = dbRefObject.child('picRef/');
+  //Added this to traverse the Recipe directory in the storage system. Jorge
+  var stPicObject = firebase.storage().ref('Recipes/');
+  //This is to get the value from picRef in database. Jorge
+
+  //This gets the getDownloadURL for the filename from searching in storage, if it worked. Jorge
+  //stPicObject.child(fileURL).getDownloadURL().then(function(url){
+  //}).catch(function(error){});
+
   //$(preObject).remove();
   var title = $('<p>').appendTo(webPage);
       title.append(searchTerm.substring(8));
-  var picurl = $('<p>').appendTo(webPage);
-      picurl.append("Picture of tasty food go here.");
+  //This is the line that actually has the info, if you go to storage and get the download url, replace it with hold, it works. Jorge
+  // var key = '<img src="'+ hold +'" style="width:100px;height:100px;">';
+  // var picurl = $(key).appendTo(webPage);
+  var picurl = $('').appendTo(webPage);
+  var fileURL = dbPicObject.on('value', function(snap){
+    console.log("snap val is: " + snap.val());
+
+  stPicObject.child(snap.val()).getDownloadURL().then(function(url){
+    console.log(url);
+    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    console.log("here key: "+key);
+    $(key).appendTo(webPage);
+
+    //var picurl = $(key).appendTo(webPage);
+  }).catch(function(error){});
+  });
+      //picurl.append("Picture of tasty food go here.");
   var ul = $('<ul>').appendTo(webPage);
   var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
 
@@ -52,6 +77,68 @@ function displayFunction() {
   //preObject.innerHTML = ul;
 }
 
+function organizedDisplay(){
+  var dbRefObject = firebase.database().ref().child(searchTerm);
+  var hold = searchTerm;
+  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(webPage);
+  var title = $('<p>').appendTo(webPage);
+  var ul = $('<ul>').appendTo(webPage);
+  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+
+  loop(
+    function(){
+  var dbPicObject = dbRefObject.child('picRef/');
+  var stPicObject = firebase.storage().ref('Recipes/');
+  var fileURL = dbPicObject.on('value', function(snap){
+    console.log("snap val is: " + snap.val());
+
+  stPicObject.child(snap.val()).getDownloadURL().then(function(url){
+    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    console.log("here is key: "+key);
+    //$(key).appendTo(webPage);
+    pic.replaceWith(key);
+    hold = hold.substring(0, hold.length-1);
+    title.append(hold.substring(8));
+
+    //var picurl = $(key).appendTo(webPage);
+  }).catch(function(error){});
+  });
+},function(){
+
+  var dbIngreObject = dbRefObject.child('Ingredients/');
+  dbIngreObject.on('value', snap => {
+    snap.forEach(function(child){
+      ul.append(
+        $(document.createElement('li')).html(child.key + ": " + child.val())
+      );
+    });
+  });
+},function(){
+
+  var dbInstrObject = dbRefObject.child('Instructions/');
+
+  dbInstrObject.on('value', snap => {
+    snap.forEach(function(child){
+      ulnon.append(
+        $(document.createElement('li')).html(child.key +": "+child.val())
+      );
+    });
+  });
+}
+)}
+function loop() {
+    var args = arguments;
+    if (args.length <= 0)
+        return;
+    (function chain(i) {
+        if (i >= args.length || typeof args[i] !== 'function')
+            return;
+        window.setTimeout(function() {
+            args[i]();
+            chain(i + 1);
+        }, 1000);
+    })(0);
+}
 function display_thumbnail() {
   $thumbnails.append('<img src="firebase-storage/img1"/>');
 }
@@ -74,7 +161,8 @@ function searchRecipes1() {
           } else {
             if (n != -1) {
               searchTerm = "Recipes/" + dbRecipeObj.key + "/";
-              displayFunction();
+              //displayFunction();
+              organizedDisplay();
               // document.getElementById("loader").innerHTML = "Detected!";
               flag = true;
             } else {

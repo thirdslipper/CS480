@@ -41,7 +41,7 @@
       </div>
 
       <div class="signed-in">  <!-- display profile details top right-->
-      <!-- remove <div id="firebaseui-auth-container"></div>  -->
+        
         <div id="photo-container"></div>
         <div id="name"></div>
         <div id="email"></div>
@@ -105,7 +105,6 @@
 
 </div>
 
-
   <!-- SCRIPTS -->
   <script type ="text/javascript">
   var config = {
@@ -118,27 +117,6 @@
   };
   firebase.initializeApp(config);
   </script>
-
-  <!-- //authentication snippet -->
-  <!-- <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" /> -->
-  <!-- <script type="text/javascript">
-    var uiConfig = {
-      signInFlow: 'popup',
-      signInSuccessUrl: '/profile.html',
-      signInOptions: [
-        {
-          provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          requireDisplayName: true
-        },
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID
-      ],
-      //tosUrl : '/tos.html'
-    };
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebaseui-auth-container', uiConfig);
-  </script>
-  -->
   <script src="../static/js/recipe.js"></script>
   <script src="../static/js/profile.js"></script>
   <script src="../static/js/auth.js"></script>

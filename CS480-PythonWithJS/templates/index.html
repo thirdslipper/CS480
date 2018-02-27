@@ -2,13 +2,18 @@
 <html lang="en">
 
 <head>
-    <!-- site title and icon -->
-    <title>Grüber</title>
-    <link rel="icon" href="../static/images/favicon.png"/>
-    <!-- metadata -->
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="../static/css/styles.css"/>
-
+  <!-- site title and icon -->
+  <title>Grüber</title>
+  <link rel="icon" href="../static/images/favicon.png"/>
+  <!-- metadata -->
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="../static/css/styles.css"/>
+  <!-- //initialize app -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <!-- //initialize auth -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script src="../static/js/jquery-3.3.1.js"></script>
 
 </head>
 <body>
@@ -23,11 +28,26 @@
       <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
     </div>
     <!-- RIGHT -->
-    <div class="loaded" class="hidden">  <!-- display profile details top right-->
-      <div id="photo-container"></div>
-      <div id="name"></div>
-      <div id="email"></div>
-  <!--    <button id="sign-out">Sign out</button> -->
+    <div class="header">
+<!--redirect      <form action="profile.html"> -->
+      <div class="sign-in-form">
+
+        <!-- Profile login: <br> -->
+        <input type="text" id="login-username" name="Username" placeholder="Email"/><br>
+        <input type="password" id="login-password" name="Password" placeholder="Password"/><br>
+
+        <button id="login-button" class="btn-action">Log in</button>
+        <button id="signup-button" class="btn-secondary">Sign up</button>
+      </div>
+
+      <div class="signed-in">  <!-- display profile details top right-->
+      <!-- remove <div id="firebaseui-auth-container"></div>  -->
+        <div id="photo-container"></div>
+        <div id="name"></div>
+        <div id="email"></div>
+        <button id="logout-button" class="btn-action-hide">Log out</button>
+      </div>
+
     </div>
   </header>
 
@@ -45,7 +65,6 @@
 <div class="main_content">
   <!-- ASIDE -->
   <div class="aside">
-    <div id="firebaseui-auth-container"></div> <!-- move later -->
     <p>Content goes here!</p>
     <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
   </div>
@@ -86,10 +105,7 @@
 
 </div>
 
-  <!-- //initialize app -->
-  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-  <!-- //initialize auth -->
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+
   <!-- SCRIPTS -->
   <script type ="text/javascript">
   var config = {
@@ -102,12 +118,11 @@
   };
   firebase.initializeApp(config);
   </script>
-  <script src="../static/js/jquery-3.3.1.js"></script>
 
   <!-- //authentication snippet -->
-  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
-  <script type="text/javascript">
+  <!-- <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" /> -->
+  <!-- <script type="text/javascript">
     var uiConfig = {
       signInFlow: 'popup',
       signInSuccessUrl: '/profile.html',
@@ -123,7 +138,7 @@
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     ui.start('#firebaseui-auth-container', uiConfig);
   </script>
-
+  -->
   <script src="../static/js/recipe.js"></script>
   <script src="../static/js/profile.js"></script>
   <script src="../static/js/auth.js"></script>

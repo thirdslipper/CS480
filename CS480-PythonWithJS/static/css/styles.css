@@ -33,13 +33,26 @@ header {
   width: 33%;
   height: 90%;
 }
+
+.btn-action-hide {
+  display: none;
+}
+
+/*
+.signed-in {
+  display: none;
+}
+*/
 div img {
   height: 100%;
   width: auto;
 }
-.signin {
+
+/* unused 
+.signin { 
   float: left;
 }
+*/
 
 /* NAVBAR */
 .menus {

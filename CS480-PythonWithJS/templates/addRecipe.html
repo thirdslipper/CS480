@@ -69,20 +69,21 @@
 		<input type="text" name="ingredients2[]" placeholder="Quantity, and other details"><br>
 		</div>
 
+		<div id="group-instructions" class="group">
+		<label>Instructions: </label><br>
+		<input type="text" name="instructions[]" placeholder="Step 1"><br>
+		</div>
+
 		<input type="button" value="Add Ingredient" onclick="newIngredient()">
 		<input type="button" value="Remove Ingredient" onclick="removeIngredient()">
+		<br>
+		<input type="button" value="Add Instruction" onclick="newInstruction()">
+		<input type="button" value="Remove Instruction" onclick="removeInstruction()">
 		<br>
 		<input type="submit" value="Submit">
 
 	</form>
-	<script>
-	$(document).ready(function(){
-		$('#recipe_form').submit(function(){
-			e.preventDefault();  //prevent form from submitting
-			alert("Submitted");
-			writeUserData(recipeName, ingredients1[], ingredients2[]);
-    }});
-	</script>
+	
 
   </div>
   </div>
@@ -159,6 +160,21 @@
       displayProfile(entry);
 	}
   </script>
+
+  <script>
+	// create a shortcut. This just makes the following function call shorter and more clear.
+	var getName = function(id) { return document.getElementsByName(id); };
+
+	$(document).ready(function(){
+		$("form").submit(function(event){
+			alert("Submitted");
+			event.preventDefault();  //prevent form from submitting
+
+			writeUserData(getName("recipeName")[0].value, getName("ingredients1[]"), getName("ingredients2[]"), getName("instructions[]"));
+			// ingredents[] are passed as a node list reference, while recipeName is just a true value.
+		});
+    });
+   </script>
 
 </body>
 

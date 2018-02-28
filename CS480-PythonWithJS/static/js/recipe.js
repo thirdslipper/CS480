@@ -1,6 +1,6 @@
 //loader element <p>
 var webPage = document.getElementById("loader");
-const $thumbnails = $('.recipe_display');
+const $thumbnails = $('.thumbnails');
 //default search term
 var searchTerm = "Recipes/";
 
@@ -80,10 +80,10 @@ function displayFunction(){
 function organizedDisplay(){
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var hold = searchTerm;
-  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(webPage);
-  var title = $('<p>').appendTo(webPage);
-  var ul = $('<ul>').appendTo(webPage);
-  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo($thumbnails);
+  var title = $('<p>').appendTo($thumbnails);
+//  var ul = $('<ul>').appendTo(webPage);
+//  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
 
   loop(
     function(){
@@ -126,6 +126,7 @@ function organizedDisplay(){
   });
 }
 )}
+
 function loop() {
     var args = arguments;
     if (args.length <= 0)
@@ -139,6 +140,7 @@ function loop() {
         }, 1000);
     })(0);
 }
+
 function display_thumbnail() {
   $thumbnails.append('<img src="firebase-storage/img1"/>');
 }

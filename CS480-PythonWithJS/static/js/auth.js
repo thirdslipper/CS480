@@ -1,5 +1,4 @@
 
-
 (function() {
   const txtEmail = document.getElementById('login-username');
   const txtPassword = document.getElementById('login-password');
@@ -14,7 +13,10 @@
       //sign in
     const promise = auth.signInWithEmailAndPassword(email, pass);
       //catch error
-    promise.catch(e => console.log(e.message));
+    promise.catch(e => {
+      console.log(e.message);
+      alert(e);
+    })
   });
 
   btnSignUp.addEventListener('click', e => {
@@ -24,8 +26,12 @@
     const auth = firebase.auth();
       //sign in
     const promise = auth.createUserWithEmailAndPassword(email, pass);
+    
       //catch error
-    promise.catch(e => console.log(e.message));
+    promise.catch(e => {
+      console.log(e.message);
+      alert(e);
+    });
   });
 
   btnLogout.addEventListener('click', e => {
@@ -44,6 +50,8 @@
       for (i = 0; i < forms.length; i++){
         forms[i].style.display = "none";
       }
+      txtEmail.value = '';
+      txtPassword.value = '';
     } 
     else {
       console.log('not logged in');

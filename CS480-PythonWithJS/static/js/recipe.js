@@ -1,6 +1,7 @@
 //loader element <p>
 var webPage = document.getElementById("loader");
-const $thumbnails = $('.thumbnails');
+// const $thumbnails = $('.thumbnails');
+var thumbnails = document.getElementById("thumbnails");
 //default search term
 var searchTerm = "Recipes/";
 
@@ -60,13 +61,12 @@ searchBar.addEventListener("keyup", function(event) {
 // }
 
 function organizedDisplay(){
-  emptyScreen();
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var hold = searchTerm;
-  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo($thumbnails);
-  var title = $('<p>').appendTo($thumbnails);
-//  var ul = $('<ul>').appendTo(webPage);
-//  var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
+  var title = $('<p>').appendTo(thumbnails);
+  // var ul = $('<ul>').appendTo(webPage);
+  // var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
 
   loop(
     function(){
@@ -76,7 +76,7 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    var key = ('<a onclick="passTitle(' + searchTerm + ')" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
     console.log("here is key: "+key);
     //$(key).appendTo(webPage);
     pic.replaceWith(key);
@@ -124,10 +124,6 @@ function loop() {
     })(0);
 }
 
-function display_thumbnail() {
-  $thumbnails.append('<img src="firebase-storage/img1"/>');
-}
-
 function searchRecipes1() {
   emptyScreen();
   var searchWord = document.getElementById("recipe_search").value.toLowerCase();
@@ -167,8 +163,9 @@ function uploadRecipe() {
 
 function emptyScreen() {
   document.getElementById("loader").innerHTML = "";
+  document.getElementById("thumbnails").innerHTML = "";
 }
 
-function passTitle() {
-  sessionStorage.setItem('recipeName','BananaPancake');
+function passTitle(fileName) {
+  sessionStorage.setItem('recipeName', 'fileName');
 }

@@ -17,7 +17,7 @@
   <script src="../static/js/jquery-3.3.1.js"></script>
 </head>
 
-<body>
+<body onload="searchRecipes()">
 <div class="flex-container">
   <!-- HEADER -->
   <header>
@@ -58,17 +58,13 @@
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
-    <a onclick="displayFunction()">Show Recipes</a>
     <a href="profile.html">View Profile</a>
-    <a href="recipeDisplay.html" onclick="passTitle()">Test Data Pass</a>
-    <a onclick=passTitle()>try me</a>
-    <!-- <form id="nav_search"> -->
-      <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
-      <input type="text" id="recipe_search" placeholder="Search Recipes"/>
-    <!-- </form> -->
+    <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
+    <input type="text" id="recipe_search" placeholder="Search Recipes"/>
   </div>
 
   <div class="main_content">
+
     <!-- ASIDE -->
     <div class="aside">
       <p>Content goes here!</p>

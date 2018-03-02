@@ -13,53 +13,6 @@ searchBar.addEventListener("keyup", function(event) {
     document.getElementById("recipe_search_button").click();
 });
 
-// //onclick function
-// //Deprecated
-// function displayFunction(){
-//   //firebase object
-//   var dbRefObject = firebase.database().ref().child(searchTerm);
-//   var dbIngreObject = dbRefObject.child('Ingredients/');
-//   var dbInstrObject = dbRefObject.child('Instructions/');
-//   var dbPicObject = dbRefObject.child('picRef/');
-//   var stPicObject = firebase.storage().ref('Recipes/');
-//   var title = $('<p>').appendTo(webPage);
-//       title.append(searchTerm.substring(8));
-//   var picurl = $('').appendTo(webPage);
-//   var fileURL = dbPicObject.on('value', function(snap){
-//     console.log("snap val is: " + snap.val());
-//
-//   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-//     console.log(url);
-//     var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
-//     console.log("here key: "+key);
-//     $(key).appendTo(webPage);
-//
-//     //var picurl = $(key).appendTo(webPage);
-//   }).catch(function(error){});
-//   });
-//       //picurl.append("Picture of tasty food go here.");
-//   var ul = $('<ul>').appendTo(webPage);
-//   var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
-//
-//   dbIngreObject.on('value', snap => {
-//     snap.forEach(function(child){
-//       ul.append(
-//         $(document.createElement('li')).html(child.key + ": " + child.val())
-//       );
-//     });
-//   });
-//   dbInstrObject.on('value', snap => {
-//     snap.forEach(function(child){
-//       ulnon.append(
-//         $(document.createElement('li')).html(child.key +": "+child.val())
-//       );
-//       if (child.key == "Instruction 1") {
-//         // document.getElementById("loader").innerHTML = "DETECTED!";
-//       }
-//     });
-//   });
-// }
-
 function organizedDisplay(){
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var hold = searchTerm;
@@ -76,7 +29,9 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    var key = ('<a onclick="passTitle(' + searchTerm + ')" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
+    // var key = ('<a onclick="passTitle(' + searchTerm + ')" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
+    // var key = ('<a onclick="passTitle("Jorge")" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
+    var key = ('<img src="'+ url +'" onclick="passTitle(\''+ hold +'\')" style="width:200px;height:200px;">');
     console.log("here is key: "+key);
     //$(key).appendTo(webPage);
     pic.replaceWith(key);
@@ -124,8 +79,9 @@ function loop() {
     })(0);
 }
 
-function searchRecipes1() {
+function searchRecipes() {
   emptyScreen();
+  document.getElementById("recipe_search").select();
   var searchWord = document.getElementById("recipe_search").value.toLowerCase();
   var dbRefObject = firebase.database().ref().child('Recipes/');
   dbRefObject.on('value', snap => {
@@ -142,7 +98,6 @@ function searchRecipes1() {
           } else {
             if (n != -1) {
               searchTerm = "Recipes/" + dbRecipeObj.key + "/";
-              //displayFunction();
               organizedDisplay();
               // document.getElementById("loader").innerHTML = "Detected!";
               flag = true;
@@ -166,6 +121,6 @@ function emptyScreen() {
   document.getElementById("thumbnails").innerHTML = "";
 }
 
-function passTitle(fileName) {
-  sessionStorage.setItem('recipeName', 'fileName');
+function passTitle(p) {
+  window.location = "recipeDisplay.html?recipe=" + p;
 }

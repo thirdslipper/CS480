@@ -3,7 +3,7 @@
   const txtEmail = document.getElementById('login-username');
   const txtPassword = document.getElementById('login-password');
   const btnLogin = document.getElementById('login-button');
-  const btnSignUp = document.getElementById('signup-button');
+  //const btnSignUp = document.getElementById('signup-button');
   const btnLogout = document.getElementById('logout-button');
 
   btnLogin.addEventListener('click', e => {
@@ -19,7 +19,7 @@
     })
   });
 
-  btnSignUp.addEventListener('click', e => {
+  /*btnSignUp.addEventListener('click', e => {
       // does not check authenticity of email
     const email = txtEmail.value;
     const pass = txtPassword.value;
@@ -33,7 +33,7 @@
       alert(e);
     });
   });
-
+  */
   btnLogout.addEventListener('click', e => {
     firebase.auth().signOut();
   });

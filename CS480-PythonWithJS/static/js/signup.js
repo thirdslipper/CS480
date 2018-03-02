@@ -1,3 +1,6 @@
+var dbRefObject = firebase.database().ref();
+var usersRef = dbRefObject.child('User Profiles/');
+
 (function() {
   const btnSignUp = document.getElementById('signup-button');
 
@@ -9,7 +12,7 @@
     var pass2 = document.getElementById('login-password2').value;
     var fname = document.getElementById('firstname').value;
     var lname = document.getElementById('lastname').value;
-    var age = document.getElementById('numArea').value;
+    var age = document.getElementById('age').value;
     //partial error checking, nonempty fields, numeric age, same passwords.
     if (fname == '' || lname == '' || age == '') {
       if (isNaN(age) && fname != '' && lname != '') {
@@ -31,7 +34,7 @@
       });
       promise.then(s => {
         alert('Account created!');
-        
+        storeUserDetails(display, fname, lname, email, age);
         document.location.href = '/profile.html';
       });
     }
@@ -39,19 +42,28 @@
   });
 }());
 
-var dbRefObject = firebase.database().ref();
-var usersRef = dbRefObject.child("User Profiles");
-
 function checkIfUserExists(userId) {
   usersRef.once('value', function(snapshot) {
     if (snapshot.hasChild(userId)) {
-      alert('already exist');
+      alert('display name already exist');
       return true;
     }
     else {
       //remove after test
-      alert('id open');
+      alert('display name open');
       return false;
     }
   })
+}
+
+//var usersRef2 = firebase.database().ref("User Profiles/");
+function storeUserDetails(displayname, fname, lname, email, age) {
+
+  var ref = firebase.database().ref('User Profiles/' + displayname);
+  ref.set({
+    'First Name': fname,
+    'Last Name': lname, 
+    Email: email,
+    Age: age
+  });
 }

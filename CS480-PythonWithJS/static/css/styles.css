@@ -138,6 +138,7 @@ div img {
 #thumbnails img {
   margin: 12px;
   font-size: 15px;
+  cursor: pointer;
 }
 .form_layout {
   line-height: 2;

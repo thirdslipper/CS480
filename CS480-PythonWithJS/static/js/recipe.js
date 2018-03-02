@@ -76,7 +76,7 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    var key = ('<img src="'+ url +'" style="width:200px;height:200px;">');
+    var key = ('<a href="recipeDisplay.html"><img src="'+ url +'" onclick="passTitle(' + url + ')" style="width:200px;height:200px;"></a>');
     console.log("here is key: "+key);
     //$(key).appendTo(webPage);
     pic.replaceWith(key);
@@ -167,8 +167,9 @@ function uploadRecipe() {
 
 function emptyScreen() {
   document.getElementById("loader").innerHTML = "";
+  $thumbnails.innerHTML = "";
 }
 
-function passTitle() {
-  sessionStorage.setItem('recipeName','BananaPancake');
+function passTitle(fileName) {
+  sessionStorage.setItem('recipeName', fileName);
 }

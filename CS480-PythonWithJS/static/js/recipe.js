@@ -76,7 +76,7 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    var key = ('<a href="recipeDisplay.html"><img src="'+ url +'" onclick="passTitle(' + url + ')" style="width:200px;height:200px;"></a>');
+    var key = ('<a href="recipeDisplay.html"><img src="'+ url +'" onclick="passTitle(' + searchTerm + ')" style="width:200px;height:200px;"></a>');
     console.log("here is key: "+key);
     //$(key).appendTo(webPage);
     pic.replaceWith(key);

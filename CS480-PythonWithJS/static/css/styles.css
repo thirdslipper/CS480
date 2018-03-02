@@ -124,12 +124,12 @@ div img {
   /* background: blue; */
   /* word-wrap: break-word; */
 }
-.thumbnails {
+#thumbnails {
   display: flex;
   flex-wrap: wrap;
   background: DodgerBlue;
 }
-.thumbnails img {
+#thumbnails img {
   margin: 12px;
   font-size: 15px;
 }

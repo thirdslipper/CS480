@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def index():
 	return render_template(
-		'index.html') 
+		'index.html')
 
 @app.route("/profile.html/<string:name>/")
 def userProfile(name):
@@ -27,6 +27,11 @@ def profile():
 def signup():
 	return render_template(
 		'signup.html')
+		
+@app.route('/recipeDisplay.html')
+def recipeDisplay():
+	return render_template(
+		'recipeDisplay.html')
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=80)

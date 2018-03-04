@@ -1,5 +1,3 @@
-//loader element <p>
-var webPage = document.getElementById("loader");
 // const $thumbnails = $('.thumbnails');
 var thumbnails = document.getElementById("thumbnails");
 //default search term
@@ -14,12 +12,20 @@ searchBar.addEventListener("keyup", function(event) {
 });
 
 function organizedDisplay(){
+  var isDisplayPage = false;
+  if (thumbnails.innerHTML == "Show Here!") {
+    isDisplayPage = true;
+    searchTerm = getQuerystring('recipe').replace(/%20/g," ").toString();
+    thumbnails.innerHTML = "";
+  }
   var dbRefObject = firebase.database().ref().child(searchTerm);
   var hold = searchTerm;
-  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
   var title = $('<p>').appendTo(thumbnails);
-  // var ul = $('<ul>').appendTo(webPage);
-  // var ulnon = $('<ul style="list-style-type:none">').appendTo(webPage);
+  var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
+  if (isDisplayPage) {
+    var ul = $('<ul>').appendTo(thumbnails);
+    var ulnon = $('<ul style="list-style-type:none">').appendTo(thumbnails);
+  }
 
   loop(
     function(){
@@ -29,16 +35,12 @@ function organizedDisplay(){
     console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
-    // var key = ('<a onclick="passTitle(' + searchTerm + ')" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
-    // var key = ('<a onclick="passTitle("Jorge")" href="recipeDisplay.html"><img src="'+ url +'" style="width:200px;height:200px;"></a>');
     var key = ('<img src="'+ url +'" onclick="passTitle(\''+ hold +'\')" style="width:200px;height:200px;">');
     console.log("here is key: "+key);
-    //$(key).appendTo(webPage);
     pic.replaceWith(key);
     hold = hold.substring(0, hold.length-1);
     title.append(hold.substring(8));
 
-    //var picurl = $(key).appendTo(webPage);
   }).catch(function(error){});
   });
 },function(){
@@ -54,7 +56,6 @@ function organizedDisplay(){
 },function(){
 
   var dbInstrObject = dbRefObject.child('Instructions/');
-
   dbInstrObject.on('value', snap => {
     snap.forEach(function(child){
       ulnon.append(
@@ -123,4 +124,15 @@ function emptyScreen() {
 
 function passTitle(p) {
   window.location = "recipeDisplay.html?recipe=" + p;
+}
+
+function getQuerystring(key, default_) {
+  if (default_==null) default_="";
+  key = key.replace(/[\\[]/,"\\\\\\[").replace(/[\\]]/,"\\\\\\]");
+  var regex = new RegExp("[\\\\?&]"+key+"=([^&#]*)");
+  var qs = regex.exec(window.location.href);
+  if(qs == null)
+    return default_;
+  else
+    return qs[1];
 }

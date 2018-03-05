@@ -1,7 +1,8 @@
 // const $thumbnails = $('.thumbnails');
 var thumbnails = document.getElementById("thumbnails");
-//default search term
-var searchTerm = "Recipes/";
+//default directory
+var recipe_directory = "Recipes/";
+var searchType = "recipe_search";
 
 //recipe search on 'enter' function
 var searchBar = document.getElementById("recipe_search");
@@ -10,16 +11,25 @@ searchBar.addEventListener("keyup", function(event) {
   if (event.keyCode === 13)
     document.getElementById("recipe_search_button").click();
 });
+var ingredientSearch = document.getElementById("ingredient_search");
+ingredientSearch.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    searchType = "ingredient_search";
+    newSearch();
+    searchType = "recipe_search";
+  }
+});
 
 function organizedDisplay(){
   var isDisplayPage = false;
   if (thumbnails.innerHTML == "Show Here!") {
     isDisplayPage = true;
-    searchTerm = getQuerystring('recipe').replace(/%20/g," ").toString();
+    recipe_directory = getQuerystring('recipe').replace(/%20/g," ").toString();
     thumbnails.innerHTML = "";
   }
-  var dbRefObject = firebase.database().ref().child(searchTerm);
-  var hold = searchTerm;
+  var dbRefObject = firebase.database().ref().child(recipe_directory);
+  var hold = recipe_directory;
   var title = $('<p>').appendTo(thumbnails);
   var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
   if (isDisplayPage) {
@@ -54,7 +64,6 @@ function organizedDisplay(){
     });
   });
 },function(){
-
   var dbInstrObject = dbRefObject.child('Instructions/');
   dbInstrObject.on('value', snap => {
     snap.forEach(function(child){
@@ -80,34 +89,32 @@ function loop() {
     })(0);
 }
 
-function searchRecipes() {
+function newSearch() {
   emptyScreen();
-  document.getElementById("recipe_search").select();
-  var searchWord = document.getElementById("recipe_search").value.toLowerCase();
+  document.getElementById(searchType).select();
+  var searchWord = document.getElementById(searchType).value.toLowerCase();
   var dbRefObject = firebase.database().ref().child('Recipes/');
   dbRefObject.on('value', snap => {
+    //search each recipe
     snap.forEach(function(child){
       var dbRecipeObj = dbRefObject.child(child.key + "/");
       var dbIngreObject = dbRecipeObj.child('Ingredients/');
-      var flag = false;
+      var recipe_loaded = false;
+      //always search ingredients
       dbIngreObject.on('value', snap => {
         snap.forEach(function(child){
-          // var n = child.val().search(searchWord);
           var n = child.key.toLowerCase().search(searchWord);
-          if (flag != false) {
-            //if 'found' true, do nothing
-          } else {
-            if (n != -1) {
-              searchTerm = "Recipes/" + dbRecipeObj.key + "/";
-              organizedDisplay();
-              // document.getElementById("loader").innerHTML = "Detected!";
-              flag = true;
-            } else {
-              // document.getElementById("loader").innerHTML = "Nothing!";
-            }
-          }
+          recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
         });
       });
+      if (searchType == "recipe_search") {
+        //search recipe names
+        var n = dbRecipeObj.key.toLowerCase().search(searchWord);
+        recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
+        //search meal type
+        // n = dbRecipeObj.child('Meal Type/').val().toLowerCase().search(searchWord);
+        // recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
+      }
     });
   });
 }
@@ -135,4 +142,20 @@ function getQuerystring(key, default_) {
     return default_;
   else
     return qs[1];
+}
+
+function processSearch(recipe_loaded, n, key) {
+  if (recipe_loaded == true) {
+    //if recipe already loaded, do nothing
+  } else {
+    if (n != -1) {
+      //if matched, display
+      recipe_directory = "Recipes/" + key + "/";
+      organizedDisplay();
+      recipe_loaded = true;
+    } else {
+      //recipe name didn't match
+    }
+  }
+  return recipe_loaded;
 }

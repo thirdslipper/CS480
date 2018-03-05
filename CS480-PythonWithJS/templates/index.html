@@ -17,7 +17,7 @@
   <script src="../static/js/jquery-3.3.1.js"></script>
 </head>
 
-<body onload="searchRecipes()">
+<body onload="newSearch()">
 <div class="flex-container">
   <!-- HEADER -->
   <header>
@@ -26,32 +26,26 @@
     </div>
     <!-- CENTER -->
     <div class="header">
-      <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+      <img src="../static/images/gruber_name.png" alt="GRUBER_NAME"/>
     </div>
     <!-- RIGHT -->
     <div class="header">
-<!--redirect      <form action="profile.html"> -->
       <div class="sign-in-form">
-
         <!-- Profile login: <br> -->
-        <input type="text" id="login-username" name="Username" placeholder="Email"/><br>
-        <input type="password" id="login-password" name="Password" placeholder="Password"/><br>
-
+        <input type="text" id="login-username" name="Username" placeholder="Email"/>
+        <input type="password" id="login-password" name="Password" placeholder="Password" style="margin-bottom:3px;"/>
+        <br>
         <button id="login-button" class="btn-action">Log in</button>
-        <!-- <button id="signup-button" class="btn-secondary">Sign up</button> -->
         <input type="button" onclick="location.href='signup.html';" value="Sign Up" />
-
         <button id="forgot-password-button" class="btn-tertiary">Forgot Password</button>
       </div>
-
-      <div class="signed-in">  <!-- display profile details top right-->
-
+      <div class="signed-in">
+        <!-- display profile details top right-->
         <div id="photo-container"></div>
         <div id="name"></div>
         <div id="email"></div>
         <button id="logout-button" class="btn-action-hide">Log out</button>
       </div>
-
     </div>
   </header>
 
@@ -59,30 +53,27 @@
   <div class="menus">
     <a href="index.html">Home</a>
     <a href="profile.html">View Profile</a>
-    <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes()"/>
+    <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="newSearch()"/>
     <input type="text" id="recipe_search" placeholder="Search Recipes"/>
   </div>
 
   <div class="main_content">
-
     <!-- ASIDE -->
     <div class="aside">
       <p>Content goes here!</p>
       <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
     </div>
-
-
-  <!-- BODY -->
-  <div id=content>
-    <pre id="loader">
-      <!-- empty text dump -->
-    </pre>
-    <div class="thumbnail_layout">
-      <div id="thumbnails">
-        <!-- thumbnails go here -->
+    <!-- BODY -->
+    <div id=content>
+      <pre id="loader">
+        <!-- empty text dump -->
+      </pre>
+      <div class="thumbnail_layout">
+        <div id="thumbnails">
+          <!-- thumbnails go here -->
+        </div>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- FOOTER -->

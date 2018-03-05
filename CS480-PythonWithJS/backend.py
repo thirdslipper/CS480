@@ -18,6 +18,11 @@ def addRecipe():
     return render_template(
         'addRecipe.html')
 
+@app.route("/forgotpassword.html")
+def forgotpassword():
+    return render_template(
+        'forgotpassword.html')
+
 @app.route('/profile.html')
 def profile():
 	return render_template(

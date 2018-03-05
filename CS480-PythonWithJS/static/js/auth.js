@@ -1,7 +1,7 @@
 
 (function() {
-  const txtEmail = document.getElementById('login-username');
-  const txtPassword = document.getElementById('login-password');
+  var txtEmail = document.getElementById('login-username');
+  var txtPassword = document.getElementById('login-password');
   const btnLogin = document.getElementById('login-button');
   //const btnSignUp = document.getElementById('signup-button');
   const btnLogout = document.getElementById('logout-button');
@@ -46,16 +46,16 @@
       //log if logged in
     if (firebaseUser){
       console.log("logged in", firebaseUser);
+      alert('Logged in successfully!');
       btnLogout.classList.toggle("btn-action-hide", false);
       for (i = 0; i < forms.length; i++){
         forms[i].style.display = "none";
       }
-      txtEmail.value = '';
-      txtPassword.value = '';
     } 
     else {
       console.log('not logged in');
       btnLogout.classList.toggle("btn-action-hide", true);
+      txtPassword.value = '';
       for (i = 0; i < forms.length; i++){
         forms[i].style.display = "inline";
       }

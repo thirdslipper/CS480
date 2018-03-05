@@ -5,7 +5,6 @@ var usersRef = dbRefObject.child('User Profiles/');
   const btnSignUp = document.getElementById('signup-button');
 
   btnSignUp.addEventListener('click', e => {
-    console.log('clicked button');
       // does not check authenticity of email
     var display = document.getElementById('displayname').value;
     var email = document.getElementById('login-username').value;
@@ -15,17 +14,18 @@ var usersRef = dbRefObject.child('User Profiles/');
     var lname = document.getElementById('lastname').value;
     var age = document.getElementById('age').value;
     //partial error checking, nonempty fields, numeric age, same passwords.
-    if (fname == '' || lname == '' || age == '' || displayname == '') {
-      //proper error notification
+    if (fname == '' || lname == '' || age == '') {
       if ((isNaN(age) || age <= 0) && fname != '' && lname != '') {
-        alert("Age must be a valid number!");
+        alert("Age must be a number!");
       } else {
         alert('Fill in all fields!');
-      }    
-    } else if (pass !== pass2) {
-      console.log('pass doesn\'t match');
+      }
+    }
+    else if (pass !== pass2) {
       alert('Passwords do not match!');
-    } else if (!checkIfUserExists(userId)) {
+    }
+        // CURRENTLY WILL OVERWRITE THE PROFILE OF ANYONE WITH THE SAME DISPLAY NAME 
+    else if (!checkIfUserExists(display)){
         //sign in
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
         //catch error
@@ -45,7 +45,10 @@ var usersRef = dbRefObject.child('User Profiles/');
         storeUserDetails(display, fname, lname, email, age);
         document.location.href = '/profile.html';
       });
+    } else {
+      console.log('fell through');
     }
+    
   });
 }());
 
@@ -57,10 +60,10 @@ function checkIfUserExists(userId) {
     }
     else {
       //remove after test
-      alert('display name open');
+      //alert('display name open');
       return false;
     }
-  })
+  });
 }
 
 //var usersRef2 = firebase.database().ref("User Profiles/");
@@ -75,3 +78,10 @@ function storeUserDetails(displayname, fname, lname, email, age) {
   });
 }
 
+firebase.auth().onAuthStateChanged(firebaseUser => {
+  if (firebaseUser) {
+
+  } else {
+
+  }
+})

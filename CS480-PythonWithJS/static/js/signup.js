@@ -1,4 +1,5 @@
-const usersRef = firebase.database().ref().child('User Profiles/');
+var db = firebase.database();
+var usersRef = db.ref().child('User Profiles');
 var user;
 var userUID;
 var txtDisplay;
@@ -28,8 +29,7 @@ const submitButton = document.getElementById('submit-button');
     else if (pass !== pass2) {
       alert('Passwords do not match!');
     }
-        // CURRENTLY WILL OVERWRITE THE PROFILE OF ANYONE WITH THE SAME DISPLAY NAME 
-    else {//if (!checkIfUserExists(display)){  //if displayname  does not exist, 
+    else {
         //sign in
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
         //catch error
@@ -73,31 +73,34 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 });
 
 (function() {
-    console.log('in second display');
-
   checkButton.addEventListener('click', e => {
-      console.log('clicked check');
     txtDisplay = document.getElementById('displayname').value;
-    if(checkIfUserExists(txtDisplay)) {
-      alert('Display name already exists.');
-    } else {
-      alert('Display name is available!');
-    }
+    //var exist;
+
+    checkIfUserExists2(txtDisplay, function(boolean) {
+      if (boolean) {
+        alert('Displaycheck name already exists.');
+      } else {
+        alert('Display name is available!');
+      }
+    });
   });
 
   submitButton.addEventListener('click', e => {
-    console.log('submit');
     txtDisplay = document.getElementById('displayname').value;
-    if (!checkIfUserExists(txtDisplay)) {
-      var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
-      storeDisplay.update({
-        'Display Name': txtDisplay
-      });
-      alert('Display name successfully set!');
-      document.location.href = '/profile.html';
-    } else {
-      alert('Display name already exists.');
-    }
+
+    checkIfUserExists2(txtDisplay, function(boolean) {
+      if (!boolean) {
+        var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
+        storeDisplay.update({
+          'Display Name': txtDisplay
+        });
+        alert('Display name successfully set!');
+        document.location.href = '/profile.html';
+      } else {
+        alert('submitDisplay name already exists.');
+      }
+    });
   });
 }());
 
@@ -111,6 +114,18 @@ function checkIfUserExists(displayName) {
     else {
       return false;
     }
+  });
+}
+
+function checkIfUserExists2(displayName, result) {
+
+  usersRef.orderByChild("Display Name").equalTo(displayName).on("value", function(snapshot) {
+    console.log(snapshot.val());
+    if (snapshot.val() !== null) {  // if in db return true
+      result(true);
+    } else {  // if display not in db, return false
+      result(false);
+    } 
   });
 }
 

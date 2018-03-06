@@ -9,6 +9,7 @@
 * body {
   margin: 0px;
   background: #F6F7EB;
+  font-family: "Trebuchet MS";
 }
 .flex-container {
     display: flex;

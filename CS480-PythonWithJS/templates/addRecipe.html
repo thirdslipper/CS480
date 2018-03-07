@@ -63,6 +63,14 @@
     <form action="" method="post" id="recipe_form">
 		Recipe name: <br><input type="text" name="recipeName"><br>
 		
+		<label>Meal Type: </label><br>
+		<select name="meal_type">
+			<option value="Breakfast">Breakfast</option>
+			<option value="Lunch">Lunch</option>
+			<option value="Dinner">Dinner</option>
+			<option value="Snack">Snack</options>
+		</select>
+
 		<div id="group-ingredients" class="group">
 		<label>Ingredients: </label><br>
 		<input type="text" name="ingredients1[]" placeholder="Ingredient Name">
@@ -161,7 +169,7 @@
 	}
   </script>
 
-  <script>
+  <script>	// call on form submission
 	// create a shortcut. This just makes the following function call shorter and more clear.
 	var getName = function(id) { return document.getElementsByName(id); };
 
@@ -170,8 +178,10 @@
 			alert("Submitted");
 			event.preventDefault();  //prevent form from submitting
 
-			writeUserData(getName("recipeName")[0].value, getName("ingredients1[]"), getName("ingredients2[]"), getName("instructions[]"));
+			writeUserData(getName("recipeName")[0].value, getName("ingredients1[]"), getName("ingredients2[]"), getName("instructions[]"), getName("meal_type")[0].value);
 			// ingredents[] are passed as a node list reference, while recipeName is just a true value.
+
+			passTitle('Recipes/' + getName("recipeName")[0].value + '/');
 		});
     });
    </script>

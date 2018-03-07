@@ -2,7 +2,6 @@ var db = firebase.database();
 var usersRef = db.ref().child('User Profiles');
 var user;
 var userUID;
-var txtDisplay;
 const checkButton = document.getElementById('check-button');
 const submitButton = document.getElementById('submit-button');
 
@@ -50,7 +49,36 @@ const submitButton = document.getElementById('submit-button');
       });
     }
   });
-}());
+
+  checkButton.addEventListener('click', e => {
+    var txtDisplay = document.getElementById('displayname').value;
+    //var exist;
+
+    checkIfUserExists2(txtDisplay, function(boolean) {
+      if (boolean) {
+        alert('Displaycheck name already exists.');
+      } else {
+        alert('Display name is available!');
+      }
+    });
+  });
+
+  submitButton.addEventListener('click', e => {
+    var txtDisplay = document.getElementById('displayname').value;
+
+    checkIfUserExists2(txtDisplay, function(boolean2) {
+      if (!boolean2) {
+        var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
+        storeDisplay.update({
+          'Display Name': txtDisplay
+        });
+        alert('Display name successfully set!');
+        document.location.href = '/profile.html';
+      } else {
+        alert('submitDisplay name already exists.');
+      }
+    });
+  });
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
@@ -72,38 +100,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
   }
 });
 
-(function() {
-  checkButton.addEventListener('click', e => {
-    txtDisplay = document.getElementById('displayname').value;
-    //var exist;
-
-    checkIfUserExists2(txtDisplay, function(boolean) {
-      if (boolean) {
-        alert('Displaycheck name already exists.');
-      } else {
-        alert('Display name is available!');
-      }
-    });
-  });
-
-  submitButton.addEventListener('click', e => {
-    txtDisplay = document.getElementById('displayname').value;
-
-    checkIfUserExists2(txtDisplay, function(boolean) {
-      if (!boolean) {
-        var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
-        storeDisplay.update({
-          'Display Name': txtDisplay
-        });
-        alert('Display name successfully set!');
-        document.location.href = '/profile.html';
-      } else {
-        alert('submitDisplay name already exists.');
-      }
-    });
-  });
 }());
-
 
   //return true if displayname already exist, else return false
 function checkIfUserExists(displayName) {

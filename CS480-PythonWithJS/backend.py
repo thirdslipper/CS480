@@ -17,6 +17,11 @@ def userProfile(name):
 def addRecipe():
     return render_template(
         'addRecipe.html')
+		
+@app.route("/editRecipe.html")
+def editRecipe():
+	return render_template(
+		'editRecipe.html')
 
 @app.route("/forgotpassword.html")
 def forgotpassword():
@@ -32,7 +37,7 @@ def profile():
 def signup():
 	return render_template(
 		'signup.html')
-		
+
 @app.route('/recipeDisplay.html')
 def recipeDisplay():
 	return render_template(

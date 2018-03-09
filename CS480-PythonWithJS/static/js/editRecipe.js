@@ -46,6 +46,13 @@ function loadRecipe(){
 
 }
 
+function checkRecipe(){
+	var selected = document.getElementById("group-recipelist");
+	var recipe = selected.options[selected.selectedIndex].value;
+
+	return recipe;
+}
+
 function freshPullIngredients(recipe){
 	resetIngredients();
 	pullIngredient(recipe);

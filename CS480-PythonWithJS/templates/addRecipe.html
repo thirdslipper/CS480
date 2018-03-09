@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- site title and icon -->
+    <title>Grüber</title>
+    <link rel="icon" href="../static/images/favicon.png"/>
+    <!-- metadata -->
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/css/styles.css"/>
+</head>
+
+<body>
+  <div class="flex-container">
+  <!-- HEADER -->
+  <header>
+    <!-- LEFT -->
+    <div class="header">
+    </div>
+    <!-- CENTER -->
+    <div class="header">
+      <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+    </div>
+    <!-- RIGHT -->
+    <div class="header">
+      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
+      <input type="text" class="signin" id="Password" placeholder="Password"/>
+      <button class="signin" onclick="ProfileSearch()">New User</button>
+    </div>
+  </header>
+
+  <!-- NAV BAR -->
+  <div class="menus">
+    <a href="index.html">Home</a>
+    <a href="profile.html">View Profile</a>
+	<a href="editRecipe.html">Edit a Recipe</a>
+
+    <!-- <form id="nav_search">
+      <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes1()"/>
+      <input type="text" id="recipe_search" placeholder="Search Recipes"/> -->
+    <!-- </form> -->
+  </div>
+
+<div class="main_content">
+  <!-- ASIDE -->
+  <div class="aside">
+    <div id="firebaseui-auth-container"></div>
+      <!-- Profile Creation Temp
+      <div class="createAcc">
+        <form action="profile.html">
+          Profile Create: <br>
+          Username: <input type="text" id="createusername" name="Username"/><br>
+          Password: <input type="text" id="createpassword" name="Password"><br>
+          <input type="submit" value="Submit" onclick="createProfile()">
+        </form>
+      </div> -->
+    <p>Content goes here!</p>
+    <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
+  </div>
+
+  <!-- BODY -->
+  <div id=content>
+  <div class="form_layout">
+    <form action="" method="post" id="recipe_form">
+		Recipe name: <br><input type="text" name="recipeName"><br>
+
+		<label>Meal Type: </label><br>
+		<select name="meal_type">
+			<option value="Breakfast">Breakfast</option>
+			<option value="Lunch">Lunch</option>
+			<option value="Dinner">Dinner</option>
+			<option value="Snack">Snack</option>
+		</select>
+
+		<div id="group-ingredients" class="group">
+		<label>Ingredients: </label><br>
+		<input type="text" name="ingredients1[]" placeholder="Ingredient Name">
+		<input type="text" name="ingredients2[]" placeholder="Quantity, and other details"><br>
+		</div>
+
+		<div id="group-instructions" class="group">
+		<label>Instructions: </label><br>
+		<input type="text" name="instructions[]" placeholder="Step 1"><br>
+		</div>
+
+		<input type="button" value="Add Ingredient" onclick="newIngredient()">
+		<input type="button" value="Remove Ingredient" onclick="removeIngredient()">
+		<br>
+		<input type="button" value="Add Instruction" onclick="newInstruction()">
+		<input type="button" value="Remove Instruction" onclick="removeInstruction()">
+		<br>
+		Photo upload: <input type="file" id="img"><br>
+		<input type="submit" value="Submit" onclick="makeVisible()"><br>
+		<button type="button" id="hidden" onclick="passTitle('Recipes/' + getName('recipeName')[0].value + '/')">View recipe page</button>
+
+	</form>
+
+
+  </div>
+  </div>
+</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="column">
+      <h5>Team Members:</h5>
+      <p>
+        Andrew
+      </p><p>
+        Jorge
+      </p><p>
+        Colin
+      </p><p>
+        Donovan
+      </p><p>
+        SueAnn
+      </p>
+    </div>
+    <div class="column">
+      <h5>-About Us-</h5>
+    </div>
+  </footer>
+
+</div>
+
+  <!-- SCRIPTS -->
+
+  <!--initialize app-->
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <!-- initialize auth-->
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",
+    authDomain: "gruberdb-d230e.firebaseapp.com",
+    databaseURL: "https://gruberdb-d230e.firebaseio.com",
+    projectId: "gruberdb-d230e",
+    storageBucket: "gruberdb-d230e.appspot.com",
+    messagingSenderId: "144586333049"
+  };
+  firebase.initializeApp(config);
+  </script>
+
+  <!--authentication snippet-->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
+
+  <script type="text/javascript">
+      var uiConfig = {
+        signInSuccessUrl: '/profile.html',
+        signInOptions: [
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID
+        ],
+        //tosUrl : '/tos.html'
+      };
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+
+  <script src="../static/js/recipe.js"></script>
+  <script src="../static/js/profile.js"></script>
+  <script src="../static/js/jquery-3.3.1.js"></script>
+  <script src="../static/js/addRecipe.js"></script>
+
+  <script>
+    function ProfileSearch() {
+	  var entry = document.getElementById("Username").value;
+      displayProfile(entry);
+	}
+  </script>
+
+  <script>
+	function makeVisible() {
+		document.getElementById("hidden").style.display = "block";
+	}
+  </script>
+
+  <script>	// call on form submission
+	// create a shortcut. This just makes the following function call shorter and more clear.
+	var getName = function(id) { return document.getElementsByName(id); };
+	$(document).ready(function(){
+		$("form").submit(function(event){
+			alert("Submitted");
+			event.preventDefault();  //prevent form from submitting
+			writeUserData(getName("recipeName")[0].value, getName("ingredients1[]"), getName("ingredients2[]"),
+				getName("instructions[]"), getName("meal_type")[0].value, document.getElementById("img"));
+			// ingredents[] are passed as a node list reference, while recipeName is just a true value.
+		});
+    });
+   </script>
+
+</body>
+
+</html>

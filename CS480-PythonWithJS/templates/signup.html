@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- site title and icon -->
+  <title>Grüber</title>
+  <link rel="icon" href="../static/images/favicon.png"/>
+  <!-- metadata -->
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <link rel="stylesheet" href="../static/css/signup.css"/>
+  <!-- //initialize app -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <!-- //initialize auth -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script src="../static/js/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+  <div class="flex-container">  
+    <!-- HEADER -->
+    <header>
+      <!-- LEFT -->
+      <div class="header">
+      </div>
+      <!-- CENTER -->
+      <div class="header">
+        <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+      </div>
+      <!-- RIGHT -->
+      <div class="header">
+      </div>
+    </header>
+
+    <!-- NAV BAR -->
+    <div class="menus">
+      <a href="index.html">Home</a>
+      <a onclick="displayFunction()">Show Recipes</a>
+      <a href="profile.html">View Profile</a>
+      <a href="recipeDisplay.html" onclick="passTitle()">Test Data Pass</a>
+      <!-- <form id="nav_search"> -->
+        <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="searchRecipes1()"/>
+        <input type="text" id="recipe_search" placeholder="Search Recipes"/>
+      <!-- </form> -->
+    </div>
+
+    <div class="main_content">
+
+      <!-- BODY -->
+      <div id="loader"></div>
+      <div class="signupform">
+        <form><!-- action="/profile.html"> -->
+          <!-- add later, check for unique display, maybe add date of birth, country, etc? -->
+
+          <input type="text" id="displayname" placeholder="Display Name"/><br>
+          <input type="text" id="login-username" placeholder="Email"/><br>
+          <input type="password" id="login-password" placeholder="Password"/><br>
+          <input type="password" id="login-password2" placeholder="Confirm Password"/><br>
+
+          <input type="text" id="firstname" placeholder="First Name"/><br>
+          <input type="text" id="lastname" placeholder="Last Name"/><br>
+          <input type="number" id="age" placeholder="Age"/><br>
+
+          <input type="button" id="signup-button" value="Submit">
+        </form>
+      </div>
+
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="column">
+          <h5>Team Members:</h5>
+          <p>
+            Andrew
+          </p><p>
+            Jorge
+          </p><p>
+            Colin
+          </p><p>
+            Donovan
+          </p><p>
+            SueAnn
+          </p>
+        </div>
+        <div class="column">
+          <h5>-About Us-</h5>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+<!--
+  <script type="text/javascript">
+    var numInput = document.createElement("INPUT");
+    numInput.setAttribute("type", "number");
+    numInput.setAttribute("placeholder", "Age");
+
+    var numLoc = document.getElementById("numArea");
+    numLoc.appendChild(numInput);
+  </script>
+-->
+  <script type ="text/javascript">
+  var config = {
+    apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",
+    authDomain: "gruberdb-d230e.firebaseapp.com",
+    databaseURL: "https://gruberdb-d230e.firebaseio.com",
+    projectId: "gruberdb-d230e",
+    storageBucket: "gruberdb-d230e.appspot.com",
+    messagingSenderId: "144586333049"
+  };
+  firebase.initializeApp(config);
+  </script>
+  <script src="../static/js/signup.js"></script>
+
+</body>
+
+</html>

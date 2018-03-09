@@ -128,11 +128,15 @@ function newSearch() {
       var recipe_loaded = false;
       //create tag organizer
       var tags_matched = [];
+      var num_ingredients = 0;
+      var num_matched = 0;
       for (i=0;i<button_array.length;i++)
         tags_matched[i] = false;
       //search each ingredient
       dbIngreObject.on('value', snap => {
         snap.forEach(function(child){
+          num_ingredients++;//ADD
+          ingredient_matched = "false";//ADD
           if (searchType == "recipe_search"){
             var search_result = child.key.toLowerCase().search(searchWord);
             recipe_loaded = processSearch(recipe_loaded, search_result, dbRecipeObj.key);
@@ -144,25 +148,33 @@ function newSearch() {
               var search_result = child.key.toLowerCase().search(button_array[i]);
               //if found first time - [tag] in [ingredient description]
               if (search_result != -1){
+                ingredient_matched = "true";//ADD
                 if (tags_matched[i] != "true") {
                   tags_matched[i] = "true";
                   console.log("Found '"+button_array[i]+"' in: "+child.key+"["+dbRecipeObj.key+"]");
                 }
               }
             }
+            if (ingredient_matched == "true")
+              num_matched++;
           }
         });
       });
+      // if (searchType == "ingredient_search") {
+      //   var complete = "true";
+      //   for (i=0;i<tags_matched.length;i++) {
+      //     console.log("checking if tag["+i+"] is matched in: "+dbRecipeObj.key);
+      //     if(tags_matched[i] != "true"){
+      //       complete = "false";
+      //       console.log(dbRecipeObj.key+": is incomplete.");
+      //     }
+      //   }
+      //   if (complete == "true") {
+      //     organizedDisplay();
+      //   }
+      // }
       if (searchType == "ingredient_search") {
-        var complete = "true";
-        for (i=0;i<tags_matched.length;i++) {
-          console.log("checking if tag["+i+"] is matched in: "+dbRecipeObj.key);
-          if(tags_matched[i] != "true"){
-            complete = "false";
-            console.log(dbRecipeObj.key+": is incomplete.");
-          }
-        }
-        if (complete == "true") {
+        if (num_matched == num_ingredients){
           recipe_directory = "Recipes/" + dbRecipeObj.key + "/";
           organizedDisplay();
         }

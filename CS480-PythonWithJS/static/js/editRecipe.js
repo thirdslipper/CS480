@@ -128,7 +128,7 @@ function removeInstruction() {
 //write validation that a recipe with this name does not already exist.
 //by default, set() overwrites any data in that path.
 
-function writeUserData(recipeName, ingredients1, ingredients2, instructions) {		// ingredients and instructions are node list objects
+function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type, servings, img) {		// ingredients and instructions are node list objects
 	//firebase.database().ref('Recipes/' + recipeName + 'Ingredients').remove();
 	//firebase.database().ref('Recipes/' + recipeName + 'Instructions').remove();
 	

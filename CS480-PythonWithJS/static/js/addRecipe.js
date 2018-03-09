@@ -51,14 +51,6 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions, mea
 	firebase.database().ref('Recipes/' + recipeName).child("Servings").set(servings);
 
 	var user = firebase.auth().currentUser;
-	user.updateProfile({
-		displayName: "Test Post"
-	}).then(function() {
-		// Update successful.
-	}).catch(function(error) {
-		// An error happened.
-	});
-
 	firebase.database().ref('Recipes/' + recipeName).child("Posted by").set(user.displayName);
 	console.log(user.displayName);
 	console.log(user.email);

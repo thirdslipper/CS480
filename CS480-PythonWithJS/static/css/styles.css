@@ -131,6 +131,9 @@ div img {
   /* background: blue; */
   /* word-wrap: break-word; */
 }
+#hidden {
+	display: none;
+}
 #thumbnails {
   display: flex;
   flex-wrap: wrap;

@@ -132,7 +132,7 @@ div img {
   /* word-wrap: break-word; */
 }
 #hidden {
-	display: none;
+	visibility: hidden;
 }
 #thumbnails {
   display: flex;

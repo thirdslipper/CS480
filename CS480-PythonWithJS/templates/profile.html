@@ -13,7 +13,33 @@
 <body>
   <!-- HEADER -->
   <header>
-    <img src="../static/images/gruber_header.png" alt="Gruber Logo" width="100%"/>
+    <!-- LEFT -->
+    <div class="header">
+    </div>
+    <!-- CENTER -->
+    <div class="header">
+      <img src="../static/images/gruber_name.png" alt="GRUBER_NAME"/>
+    </div>
+    <!-- RIGHT -->
+    <div class="header">
+      <div class="sign-in-form">
+        <!-- Profile login: <br> -->
+        <input type="text" id="login-username" name="Username" placeholder="Email"/>
+        <input type="password" id="login-password" name="Password" placeholder="Password" style="margin-bottom:3px;"/>
+        <br>
+        <button id="login-button" class="btn-action">Log in</button>
+        <input type="button" onclick="location.href='signup.html';" value="Sign Up" />
+        <input type="button" onclick="location.href='forgotpassword.html';" value="Forgot Password" />
+      </div>
+      <div class="signed-in">
+        <!-- display profile details top right-->
+        <div id="photo-container"></div>
+        <div id="name"></div>
+        <div id="email"></div>
+        <button id="logout-button" class="btn-action-hide">Log out</button>
+        <input type="button" onclick="location.href='signup.html';" id="setdisplayname" value="Set Display Name" />
+      </div>
+    </div>
   </header>
 
   <!-- NAV BAR -->
@@ -68,7 +94,7 @@
   firebase.initializeApp(config);
   </script>
   <script src="../static/js/recipe.js"></script>
-
+  <script src="../static/js/generic-login.js"></script>
 </body>
 
 </html>

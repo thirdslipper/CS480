@@ -19,13 +19,27 @@
     </div>
     <!-- CENTER -->
     <div class="header">
-      <img src="../static/images/gruber_name.png" alt="ingredients_image"/>
+      <img src="../static/images/gruber_name.png" alt="GRUBER_NAME"/>
     </div>
     <!-- RIGHT -->
     <div class="header">
-      <input type="text" class="signin" id="Username" placeholder="Sign In!"/>
-      <input type="text" class="signin" id="Password" placeholder="Password"/>
-      <button class="signin" onclick="ProfileSearch()">New User</button>
+      <div class="sign-in-form">
+        <!-- Profile login: <br> -->
+        <input type="text" id="login-username" name="Username" placeholder="Email"/>
+        <input type="password" id="login-password" name="Password" placeholder="Password" style="margin-bottom:3px;"/>
+        <br>
+        <button id="login-button" class="btn-action">Log in</button>
+        <input type="button" onclick="location.href='signup.html';" value="Sign Up" />
+        <input type="button" onclick="location.href='forgotpassword.html';" value="Forgot Password" />
+      </div>
+      <div class="signed-in">
+        <!-- display profile details top right-->
+        <div id="photo-container"></div>
+        <div id="name"></div>
+        <div id="email"></div>
+        <button id="logout-button" class="btn-action-hide">Log out</button>
+        <input type="button" onclick="location.href='signup.html';" id="setdisplayname" value="Set Display Name" />
+      </div>
     </div>
   </header>
 
@@ -43,17 +57,9 @@
 <div class="main_content">
   <!-- ASIDE -->
   <div class="aside">
-    <div id="firebaseui-auth-container"></div>
-      <!-- Profile Creation Temp
-      <div class="createAcc">
-        <form action="profile.html">
-          Profile Create: <br>
-          Username: <input type="text" id="createusername" name="Username"/><br>
-          Password: <input type="text" id="createpassword" name="Password"><br>
-          <input type="submit" value="Submit" onclick="createProfile()">
-        </form>
-      </div> -->
+    <!-- rip
     <p>Content goes here!</p>
+  -->
     <input type="text" id="ingredient_search" placeholder="Add Ingredient!"/>
   </div>
 
@@ -153,14 +159,15 @@
   <script src="../static/js/profile.js"></script>
   <script src="../static/js/jquery-3.3.1.js"></script>
   <script src="../static/js/addRecipe.js"></script>
-
+  <script src="../static/js/generic-login.js"></script>
+<!-- ?? unused
   <script>
     function ProfileSearch() {
 	  var entry = document.getElementById("Username").value;
       displayProfile(entry);
 	}
   </script>
-
+-->
   <script>
 	// create a shortcut. This just makes the following function call shorter and more clear.
 	var getName = function(id) { return document.getElementsByName(id); };

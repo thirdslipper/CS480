@@ -34,8 +34,7 @@ function removeInstruction() {
 //write validation that a recipe with this name does not already exist.
 //by default, set() overwrites any data in that path.
 
-function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type, img) {		// ingredients and instructions are node list objects
-	  
+function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type, servings, img) {		// ingredients and instructions are node list objects
 
 	for(i = 0; i < ingredients1.length; i++)
 	{
@@ -49,9 +48,21 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions, mea
 	}
 
 	firebase.database().ref('Recipes/' + recipeName).child("Meal Type").set(meal_type);
+	firebase.database().ref('Recipes/' + recipeName).child("Servings").set(servings);
 
 	var user = firebase.auth().currentUser;
-	//firebase.database().ref('Recipes/' + recipeName).child("Posted by: ").set()
+	user.updateProfile({
+		displayName: "Test Post"
+	}).then(function() {
+		// Update successful.
+	}).catch(function(error) {
+		// An error happened.
+	});
+
+	firebase.database().ref('Recipes/' + recipeName).child("Posted by").set(user.displayName);
+	console.log(user.displayName);
+	console.log(user.email);
+	console.log(user.uid);
 
 	var fileName = recipeName + '.jpg';
 	fileName = fileName.toLowerCase();

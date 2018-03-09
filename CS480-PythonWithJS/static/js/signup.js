@@ -70,7 +70,7 @@ const submitButton = document.getElementById('submit-button');
       if (!boolean2) {
         var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
         storeDisplay.update({
-          'Display Name': txtDisplay
+          displayName: txtDisplay
         });
         alert('Display name successfully set!');
         document.location.href = '/profile.html';

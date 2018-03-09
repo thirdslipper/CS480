@@ -3,8 +3,11 @@ var thumbnails = document.getElementById("thumbnails");
 //default directory
 var recipe_directory = "Recipes/";
 var searchType = "recipe_search";
+//array of button searches
+var button_array = [];
+var newFilter = "";
 
-//recipe search on 'enter' function
+//recipe search on 'enter' functions
 var searchBar = document.getElementById("recipe_search");
 searchBar.addEventListener("keyup", function(event) {
   event.preventDefault();
@@ -15,6 +18,12 @@ var ingredientSearch = document.getElementById("ingredient_search");
 ingredientSearch.addEventListener("keyup", function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
+    newFilter = ingredientSearch.value;
+    //tag handling
+    var tags_element = document.getElementById('tags');
+    var tag_button = $('<button type="button" class="'+newFilter+'" onclick="removeButton(\''+newFilter+'\')">'+newFilter+'</button>').appendTo(tags_element);
+    button_array.push(newFilter);
+
     searchType = "ingredient_search";
     newSearch();
     searchType = "recipe_search";
@@ -35,8 +44,6 @@ function organizedDisplay(){
   var pic = $('<img src="""/>').appendTo(div);
   var title = $('<h2 style="text-align:center; color:#243010;">').appendTo(div);
 
-  // var title = $('<p>').appendTo(thumbnails);
-  // var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
   if (isDisplayPage) {
 	var ultitle = $('<h3>').appendTo(thumbnails);
     var ul = $('<ul>').appendTo(thumbnails);
@@ -49,11 +56,11 @@ function organizedDisplay(){
   var dbPicObject = dbRefObject.child('picRef/');
   var stPicObject = firebase.storage().ref('Recipes/');
   var fileURL = dbPicObject.on('value', function(snap){
-    console.log("snap val is: " + snap.val());
+    // console.log("snap val is: " + snap.val());
 
   stPicObject.child(snap.val()).getDownloadURL().then(function(url){
     var key = ('<img src="'+ url +'" style="display:block; max-width:200px;max-height:200px;border:5px solid #243010; margin-left:auto; margin-right:auto;">');
-    console.log("here is key: "+key);
+    // console.log("here is key: "+key);
     pic.replaceWith(key);
     hold = hold.substring(0, hold.length-1);
     title.append(hold.substring(8));
@@ -61,6 +68,7 @@ function organizedDisplay(){
   }).catch(function(error){});
   });
 },function(){
+  if (isDisplayPage) {
   var dbIngreObject = dbRefObject.child('Ingredients/');
   ul.prepend(ultitle);
   ultitle.append("Ingredients: ");
@@ -71,7 +79,8 @@ function organizedDisplay(){
       );
     });
   });
-},function(){
+}},function(){
+  if (isDisplayPage) {
   var dbInstrObject = dbRefObject.child('Instructions/');
   ulnon.prepend(ulnontitle);
   ulnontitle.append('Instructions: ');
@@ -82,7 +91,7 @@ function organizedDisplay(){
       );
     });
   });
-}
+}}
 )}
 
 function inOrderDisplay() {
@@ -100,8 +109,16 @@ function inOrderDisplay() {
 
 function newSearch() {
   emptyScreen();
+  //console
+  for (i = 0; i < button_array.length; i++) {
+    console.log("b_a["+i+"]: "+button_array[i]);
+  }
   document.getElementById(searchType).select();
-  var searchWord = document.getElementById(searchType).value.toLowerCase();
+  if (searchType == "recipe_search")
+    var searchWord = document.getElementById(searchType).value.toLowerCase();
+  else {
+    var searchWord = newFilter.toLowerCase();
+  }
   var dbRefObject = firebase.database().ref().child('Recipes/');
   dbRefObject.on('value', snap => {
     //search each recipe
@@ -109,13 +126,47 @@ function newSearch() {
       var dbRecipeObj = dbRefObject.child(child.key + "/");
       var dbIngreObject = dbRecipeObj.child('Ingredients/');
       var recipe_loaded = false;
-      //always search ingredients
+      //create tag organizer
+      var tags_matched = [];
+      for (i=0;i<button_array.length;i++)
+        tags_matched[i] = false;
+      //search each ingredient
       dbIngreObject.on('value', snap => {
         snap.forEach(function(child){
-          var n = child.key.toLowerCase().search(searchWord);
-          recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
+          if (searchType == "recipe_search"){
+            var search_result = child.key.toLowerCase().search(searchWord);
+            recipe_loaded = processSearch(recipe_loaded, search_result, dbRecipeObj.key);
+          }
+          //if using filters
+          else {
+            //check each ingredient in filter list
+            for (i = 0; i < button_array.length; i++) {
+              var search_result = child.key.toLowerCase().search(button_array[i]);
+              //if found first time - [tag] in [ingredient description]
+              if (search_result != -1){
+                if (tags_matched[i] != "true") {
+                  tags_matched[i] = "true";
+                  console.log("Found '"+button_array[i]+"' in: "+child.key+"["+dbRecipeObj.key+"]");
+                }
+              }
+            }
+          }
         });
       });
+      if (searchType == "ingredient_search") {
+        var complete = "true";
+        for (i=0;i<tags_matched.length;i++) {
+          console.log("checking if tag["+i+"] is matched in: "+dbRecipeObj.key);
+          if(tags_matched[i] != "true"){
+            complete = "false";
+            console.log(dbRecipeObj.key+": is incomplete.");
+          }
+        }
+        if (complete == "true") {
+          recipe_directory = "Recipes/" + dbRecipeObj.key + "/";
+          organizedDisplay();
+        }
+      }
       if (searchType == "recipe_search") {
         //search recipe names
         var n = dbRecipeObj.key.toLowerCase().search(searchWord);
@@ -167,4 +218,40 @@ function processSearch(recipe_loaded, n, key) {
     }
   }
   return recipe_loaded;
+}
+
+function processFilter(recipe_loaded, n, key) {
+  if (recipe_loaded == true) {
+    //if recipe already loaded, do nothing
+  } else {
+    if (n != -1) {
+      //if matched, display
+      // recipe_directory = "Recipes/" + key + "/";
+      // organizedDisplay();
+      recipe_loaded = true;
+    } else {
+      //recipe name didn't match
+    }
+  }
+  return recipe_loaded;
+}
+
+function removeButton(string) {
+  console.log("removing: " + string);
+  $("button").remove("." + string);
+  //remove from array of search terms
+  var count = 0;
+  var replace_array = [];
+  for (i = 0; i < button_array.length; i++) {
+    if (button_array[i] != string) {
+      //if tag is not being removed, transfer
+      replace_array[count] = button_array[i];
+      count++;
+    }
+  }
+  button_array = replace_array;
+  //reload page
+  searchType = "ingredient_search";
+  newSearch();
+  searchType = "recipe_search";
 }

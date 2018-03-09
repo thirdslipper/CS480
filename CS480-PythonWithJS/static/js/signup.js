@@ -53,19 +53,27 @@ const submitButton = document.getElementById('submit-button');
   checkButton.addEventListener('click', e => {
     var txtDisplay = document.getElementById('displayname').value;
     //var exist;
-
+/*
     checkIfUserExists2(txtDisplay, function(boolean) {
       if (boolean) {
         alert('Displaycheck name already exists.');
       } else {
         alert('Display name is available!');
       }
+      */
+      var checkButtonPromise = checkIfUserExists3(txtDisplay);
+      checkButtonPromise.then(s => {
+        alert('Displaycheck name already exists.');
+      });
+      checkButtonPromise.catch(e => {
+        alert('Display name is available!');
+      });
     });
-  });
+  //});
 
   submitButton.addEventListener('click', e => {
     var txtDisplay = document.getElementById('displayname').value;
-
+    /*
     checkIfUserExists2(txtDisplay, function(boolean2) {
       if (!boolean2) {
         var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
@@ -77,6 +85,20 @@ const submitButton = document.getElementById('submit-button');
       } else {
         alert('submitDisplay name already exists.');
       }
+    }); */
+    var submitButtonPromise = checkIfUserExists3(txtDisplay);
+    submitButtonPromise.then(s => {
+      console.log(s);
+      alert('submitDisplay name already exists.');
+    })
+    submitButtonPromise.catch(e => {
+      console.log(e);
+      var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
+      storeDisplay.update({
+        'Display Name': txtDisplay
+      });
+      alert('Display name successfully set!');
+      document.location.href = '/profile.html';
     });
   });
 
@@ -124,6 +146,22 @@ function checkIfUserExists2(displayName, result) {
       result(false);
     } 
   });
+}
+
+function checkIfUserExists3(displayName) {
+  var checkPromise = new Promise(
+    function (resolve, reject) {
+      usersRef.orderByChild("Display Name").equalTo(displayName).on("value", function(snapshot) {
+        if (snapshot.val() !== null) {
+          resolve(snapshot.val());  //in db
+        } else {
+          var reason = new Error("User name is taken");
+          reject(reason);
+        }
+      });
+  });
+  console.log(checkPromise);
+  return checkPromise;
 }
 
 //var usersRef2 = firebase.database().ref("User Profiles/");

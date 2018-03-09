@@ -143,8 +143,15 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions) {		
 		firebase.database().ref('Recipes/' + recipeName + '/Instructions').child(temp).set(instructions[i].value);
 	}
 
+	firebase.database().ref('Recipes/' + recipeName).child("Meal Type").set(meal_type);
+	firebase.database().ref('Recipes/' + recipeName).child("Servings").set(servings);
+
 	var user = firebase.auth().currentUser;
-	//firebase.database().ref('Recipes/' + recipeName).child("Posted by: ").set()
+	firebase.database().ref('Recipes/' + recipeName).child("Posted by").set(user.displayName);
+	console.log(user.displayName);
+	console.log(user.email);
+	console.log(user.uid);
+	
 	if(document.getElementById("img").value != "") {
 		var fileName = recipeName + '.jpg';
 		fileName = fileName.toLowerCase();

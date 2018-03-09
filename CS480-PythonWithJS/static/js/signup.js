@@ -45,19 +45,11 @@ const submitButton = document.getElementById('submit-button');
           // error
           console.log(error);
         }); 
-        var user = firebase.auth().currentUser;
-		user.updateProfile({
-			displayName: txtDisplay
-		}).then(function() {
-			// Update successful
-		}).catch(function(error) {
-			// An error hapened
-		});
 		storeUserDetails(fname, lname, email, age);
       });
     }
   });
-
+  
   checkButton.addEventListener('click', e => {
     var txtDisplay = document.getElementById('displayname').value;
     //var exist;
@@ -103,9 +95,17 @@ const submitButton = document.getElementById('submit-button');
       console.log(e);
       var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
       storeDisplay.update({
-        'Display Name': txtDisplay
+        displayName: txtDisplay
       });
       alert('Display name successfully set!');
+	  var user = firebase.auth().currentUser;
+	  user.updateProfile({
+			displayName: txtDisplay
+		}).then(function() {
+			// Update successful
+		}).catch(function(error) {
+			// An error hapened
+		});
       document.location.href = '/profile.html';
     });
   });
@@ -134,7 +134,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
   //return true if displayname already exist, else return false
 function checkIfUserExists(displayName) {
-  usersRef.once('value', function(snapshot) {
+  usersRef.on('value', function(snapshot) {
     if (snapshot.hasChild(displayName)) {
       return true;
     }

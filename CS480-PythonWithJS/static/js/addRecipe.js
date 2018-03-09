@@ -34,8 +34,8 @@ function removeInstruction() {
 //write validation that a recipe with this name does not already exist.
 //by default, set() overwrites any data in that path.
 
-function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type) {		// ingredients and instructions are node list objects
-	  
+function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type, img) {		// ingredients and instructions are node list objects
+
 	for(i = 0; i < ingredients1.length; i++)
 	{
 		firebase.database().ref('Recipes/' + recipeName + '/Ingredients').child(ingredients1[i].value).set(ingredients2[i].value);
@@ -48,11 +48,15 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions, mea
 	}
 
 	firebase.database().ref('Recipes/' + recipeName).child("Meal Type").set(meal_type);
-	//firebase.database().ref('Recipes/' + recipeName).child("Ethnicity").set(ethnicity[0].value);
-
 
 	var user = firebase.auth().currentUser;
 	firebase.database().ref('Recipes/' + recipeName).child("Posted by").set(user.displayName);
 
-      //profile_picture : imageUrl
+	var fileName = recipeName + '.jpg';
+	fileName = fileName.toLowerCase();
+	fileName = fileName.replace( / /g, "_");
+	firebase.database().ref('Recipes/' + recipeName).child("picRef").set(fileName);
+
+	var ref = firebase.storage().ref('Recipes/').child(fileName);
+	ref.put(img.files[0]);
 }

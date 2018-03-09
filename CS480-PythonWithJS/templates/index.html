@@ -45,6 +45,7 @@
         <div id="name"></div>
         <div id="email"></div>
         <button id="logout-button" class="btn-action-hide">Log out</button>
+        <input type="button" onclick="location.href='signup.html';" id="setdisplayname" value="Set Display Name" />
       </div>
     </div>
   </header>
@@ -52,7 +53,8 @@
   <!-- NAV BAR -->
   <div class="menus">
     <a href="index.html">Home</a>
-    <a href="profile.html">View Profile</a>
+    <!-- change to conditional display -->
+    <a href="profile.html" id="viewProfile">View Profile</a> 
     <img src="../static/images/search_icon.png" id="recipe_search_button" onclick="newSearch()"/>
     <input type="text" id="recipe_search" placeholder="Search Recipes"/>
   </div>

@@ -1,12 +1,16 @@
-var dbRefObject = firebase.database().ref();
-var usersRef = dbRefObject.child('User Profiles/');
+var db = firebase.database();
+var usersRef = db.ref().child('User Profiles');
+var user;
+var userUID;
+const checkButton = document.getElementById('check-button');
+const submitButton = document.getElementById('submit-button');
 
 (function() {
   const btnSignUp = document.getElementById('signup-button');
 
   btnSignUp.addEventListener('click', e => {
       // does not check authenticity of email
-    var display = document.getElementById('displayname').value;
+    //var display = document.getElementById('displayname').value;
     var email = document.getElementById('login-username').value;
     var pass = document.getElementById('login-password').value;
     var pass2 = document.getElementById('login-password2').value;
@@ -24,8 +28,7 @@ var usersRef = dbRefObject.child('User Profiles/');
     else if (pass !== pass2) {
       alert('Passwords do not match!');
     }
-        // CURRENTLY WILL OVERWRITE THE PROFILE OF ANYONE WITH THE SAME DISPLAY NAME 
-    else if (!checkIfUserExists(display)){
+    else {
         //sign in
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
         //catch error
@@ -42,46 +45,95 @@ var usersRef = dbRefObject.child('User Profiles/');
           // error
           console.log(error);
         }); 
-        storeUserDetails(display, fname, lname, email, age);
-        document.location.href = '/profile.html';
+        storeUserDetails(fname, lname, email, age);
       });
-    } else {
-      console.log('fell through');
     }
-    
   });
+
+  checkButton.addEventListener('click', e => {
+    var txtDisplay = document.getElementById('displayname').value;
+    //var exist;
+
+    checkIfUserExists2(txtDisplay, function(boolean) {
+      if (boolean) {
+        alert('Displaycheck name already exists.');
+      } else {
+        alert('Display name is available!');
+      }
+    });
+  });
+
+  submitButton.addEventListener('click', e => {
+    var txtDisplay = document.getElementById('displayname').value;
+
+    checkIfUserExists2(txtDisplay, function(boolean2) {
+      if (!boolean2) {
+        var storeDisplay = firebase.database().ref('User Profiles/' + userUID);
+        storeDisplay.update({
+          'Display Name': txtDisplay
+        });
+        alert('Display name successfully set!');
+        document.location.href = '/profile.html';
+      } else {
+        alert('submitDisplay name already exists.');
+      }
+    });
+  });
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+  if (firebaseUser) {
+    const form = document.getElementsByClassName('signupform');
+    const showDisplayForm = document.getElementsByClassName('chooseDisplay');
+    var i;
+      //hide sign up elements
+    for (i = 0; i < form.length; i++){
+      form[i].style.display = "none";
+    }
+      //show display form
+    for (i = 0; i < showDisplayForm.length; i++){
+      showDisplayForm[i].style.display = "inline";
+    }
+    user = firebase.auth().currentUser;
+    userUID = user.uid;
+  } else {
+
+  }
+});
+
 }());
 
-function checkIfUserExists(userId) {
+  //return true if displayname already exist, else return false
+function checkIfUserExists(displayName) {
   usersRef.once('value', function(snapshot) {
-    if (snapshot.hasChild(userId)) {
-      alert('display name already exist');
+    if (snapshot.hasChild(displayName)) {
       return true;
     }
     else {
-      //remove after test
-      //alert('display name open');
       return false;
     }
   });
 }
 
-//var usersRef2 = firebase.database().ref("User Profiles/");
-function storeUserDetails(displayname, fname, lname, email, age) {
+function checkIfUserExists2(displayName, result) {
 
-  var ref = firebase.database().ref('User Profiles/' + displayname);
-  ref.set({
-    'First Name': fname,
-    'Last Name': lname, 
-    Email: email,
-    Age: age
+  usersRef.orderByChild("Display Name").equalTo(displayName).on("value", function(snapshot) {
+    console.log(snapshot.val());
+    if (snapshot.val() !== null) {  // if in db return true
+      result(true);
+    } else {  // if display not in db, return false
+      result(false);
+    } 
   });
 }
 
-firebase.auth().onAuthStateChanged(firebaseUser => {
-  if (firebaseUser) {
-
-  } else {
-
-  }
-})
+//var usersRef2 = firebase.database().ref("User Profiles/");
+function storeUserDetails(fname, lname, email, age) {
+  var uid = firebase.auth().currentUser.uid;
+  var ref = firebase.database().ref('User Profiles/' + uid);
+  ref.set({
+    'First Name': fname,
+    'Last Name': lname, 
+    Age: age,
+    Email: email
+  });
+}

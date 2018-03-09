@@ -33,16 +33,18 @@ function organizedDisplay(){
 
   var div = $('<div onclick="passTitle(\''+ hold +'\')" style="width:220px;">').appendTo(thumbnails);
   var pic = $('<img src="""/>').appendTo(div);
-  var title = $('<p style="text-align:center; color:#243010;">').appendTo(div);
+  var title = $('<h2 style="text-align:center; color:#243010;">').appendTo(div);
 
   // var title = $('<p>').appendTo(thumbnails);
   // var pic = $('<img src="" style="width:200px;height:200px;"/>').appendTo(thumbnails);
   if (isDisplayPage) {
+	var ultitle = $('<h3>').appendTo(thumbnails);
     var ul = $('<ul>').appendTo(thumbnails);
+	var ulnontitle = $('<h3>').appendTo(thumbnails);
     var ulnon = $('<ul style="list-style-type:none">').appendTo(thumbnails);
   }
 
-  loop(
+  inOrderDisplay(
     function(){
   var dbPicObject = dbRefObject.child('picRef/');
   var stPicObject = firebase.storage().ref('Recipes/');
@@ -59,8 +61,9 @@ function organizedDisplay(){
   }).catch(function(error){});
   });
 },function(){
-
   var dbIngreObject = dbRefObject.child('Ingredients/');
+  ul.prepend(ultitle);
+  ultitle.append("Ingredients: ");
   dbIngreObject.on('value', snap => {
     snap.forEach(function(child){
       ul.append(
@@ -70,28 +73,29 @@ function organizedDisplay(){
   });
 },function(){
   var dbInstrObject = dbRefObject.child('Instructions/');
+  ulnon.prepend(ulnontitle);
+  ulnontitle.append('Instructions: ');
   dbInstrObject.on('value', snap => {
     snap.forEach(function(child){
       ulnon.append(
-        $(document.createElement('li')).html(child.key +": "+child.val())
+        $(document.createElement('li')).html(child.key.substring(12) +": "+child.val())
       );
     });
   });
 }
 )}
 
-function loop() {
-    var args = arguments;
-    if (args.length <= 0)
+function inOrderDisplay() {
+    var items = arguments;
+    if (items.length <= 0)
         return;
-    (function chain(i) {
-        if (i >= args.length || typeof args[i] !== 'function')
-            return;
+    (function linkTogether(i) {
+        if (i >= items.length || typeof items[i] !== 'function'){
+            return;}
         window.setTimeout(function() {
-            args[i]();
-            chain(i + 1);
-        }, 1000);
-    })(0);
+            items[i]();
+            linkTogether(i + 1);}, 500);
+	})(0);
 }
 
 function newSearch() {

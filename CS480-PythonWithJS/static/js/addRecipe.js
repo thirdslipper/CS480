@@ -35,6 +35,7 @@ function removeInstruction() {
 //by default, set() overwrites any data in that path.
 
 function writeUserData(recipeName, ingredients1, ingredients2, instructions, meal_type, img) {		// ingredients and instructions are node list objects
+	  
 
 	for(i = 0; i < ingredients1.length; i++)
 	{
@@ -50,7 +51,7 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions, mea
 	firebase.database().ref('Recipes/' + recipeName).child("Meal Type").set(meal_type);
 
 	var user = firebase.auth().currentUser;
-	firebase.database().ref('Recipes/' + recipeName).child("Posted by").set(user.displayName);
+	//firebase.database().ref('Recipes/' + recipeName).child("Posted by: ").set()
 
 	var fileName = recipeName + '.jpg';
 	fileName = fileName.toLowerCase();

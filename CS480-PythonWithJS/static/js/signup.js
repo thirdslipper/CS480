@@ -45,7 +45,15 @@ const submitButton = document.getElementById('submit-button');
           // error
           console.log(error);
         }); 
-        storeUserDetails(fname, lname, email, age);
+        var user = firebase.auth().currentUser;
+		user.updateProfile({
+			displayName: txtDisplay
+		}).then(function() {
+			// Update successful
+		}).catch(function(error) {
+			// An error hapened
+		});
+		storeUserDetails(fname, lname, email, age);
       });
     }
   });
@@ -80,14 +88,6 @@ const submitButton = document.getElementById('submit-button');
         storeDisplay.update({
           displayName: txtDisplay
         });
-		var user = firebase.auth().currentUser;
-		user.updateProfile({
-			displayName: txtDisplay
-		}).then(function() {
-			// Update successful
-		}).catch(function(error) {
-			// An error hapened
-		});
         alert('Display name successfully set!');
         document.location.href = '/profile.html';
       } else {

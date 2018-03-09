@@ -21,7 +21,7 @@ ingredientSearch.addEventListener("keyup", function(event) {
     newFilter = ingredientSearch.value;
     //tag handling
     var tags_element = document.getElementById('tags');
-    var tag_button = $('<button type="button" class="'+newFilter+'" onclick="removeButton(\''+newFilter+'\')">'+newFilter+'</button>').appendTo(tags_element);
+    var tag_button = $('<button type="button" class="'+newFilter+'" onclick="removeButton(\''+newFilter+'\')">'+newFilter+' &#x274C </button>').appendTo(tags_element);
     button_array.push(newFilter);
 
     searchType = "ingredient_search";

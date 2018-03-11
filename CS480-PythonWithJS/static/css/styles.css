@@ -112,7 +112,7 @@ div img {
   border-right-width: medium;
   border-right-color: #788475;
   width: 18%;
-  min-height: inherit;
+  min-height: 100%;
 }
 .aside p {
   margin: 10%;
@@ -148,24 +148,6 @@ div img {
   line-height: 2;
 }
 
-/* FOOTER */
-footer {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  max-height: 10%;
-  padding: 10px 20px;
-  background: #788475;
-}
-footer h5 {
-  margin: 0;
-}
-footer p {
-  font-size: 12;
-  text-align: left;
-  margin: 0;
-  padding-left: 15;
-}
 .column {
   float: left;
   width: 50%;

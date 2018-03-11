@@ -184,8 +184,13 @@ function newSearch() {
         var n = dbRecipeObj.key.toLowerCase().search(searchWord);
         recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
         //search meal type
-        // n = dbRecipeObj.child('Meal Type/').val().toLowerCase().search(searchWord);
-        // recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
+        var meal_type = dbRecipeObj.child('Meal Type/');
+        meal_type.on('value', snap => {
+          var mt = snap.val();
+          var n = mt.toLowerCase().search(searchWord);
+          // console.log("meal type value: "+mt);
+          recipe_loaded = processSearch(recipe_loaded, n, dbRecipeObj.key);
+        });
       }
     });
   });

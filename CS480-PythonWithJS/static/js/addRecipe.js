@@ -28,7 +28,7 @@ function removeInstruction() {
 	$group.find('input:last').remove();
 	$group.find('br:last').remove();
 	if(numberOfInstructions > 0)
-		numberOfInstructions -= 1; 
+		numberOfInstructions -= 1;
 }
 
 //write validation that a recipe with this name does not already exist.
@@ -59,8 +59,13 @@ function writeUserData(recipeName, ingredients1, ingredients2, instructions, mea
 	var fileName = recipeName + '.jpg';
 	fileName = fileName.toLowerCase();
 	fileName = fileName.replace( / /g, "_");
-	firebase.database().ref('Recipes/' + recipeName).child("picRef").set(fileName);
 
 	var ref = firebase.storage().ref('Recipes/').child(fileName);
-	ref.put(img.files[0]);
+
+	if(document.getElementById("img").value != "") {
+		firebase.database().ref('Recipes/' + recipeName).child("picRef").set(fileName);
+		ref.put(img.files[0]);
+	}else{
+		firebase.database().ref('Recipes/' + recipeName).child("picRef").set("default.jpg");
+	}
 }

@@ -276,7 +276,6 @@ function removeButton(string) {
 function profileSearch() {
   emptyScreen();
   //console
-
   var dbRefObject = firebase.database().ref().child('Recipes/');
   dbRefObject.on('value', snap => {
     //search each recipe
@@ -323,7 +322,32 @@ function listProfileRecipes(name){
 		snap.forEach(function(child){
 			console.log('Made it inside '+child.key);
 			recipe_directory = "Recipes/" + child.key + "/";
-			organizedDisplay();
+			profileDisplay();
 		});
 	});
+}
+
+function profileDisplay(){
+
+  var dbRefObject = firebase.database().ref().child(recipe_directory);
+  var hold = recipe_directory;
+
+  var div = $('<div onclick="passTitle(\''+ hold +'\')" style="width:220px;">').appendTo(thumbnails);
+  var pic = $('<img src="""/>').appendTo(div);
+  var title = $('<h2 style="text-align:center; color:#243010;">').appendTo(div);
+
+  var dbPicObject = dbRefObject.child('picRef/');
+  var stPicObject = firebase.storage().ref('Recipes/');
+  var fileURL = dbPicObject.on('value', function(snap){
+    // console.log("snap val is: " + snap.val());
+
+  stPicObject.child(snap.val()).getDownloadURL().then(function(url){
+    var key = ('<img src="'+ url +'" style="display:block; max-width:200px;max-height:200px;border:5px solid #243010; margin-left:auto; margin-right:auto;">');
+    // console.log("here is key: "+key);
+    pic.replaceWith(key);
+    hold = hold.substring(0, hold.length-1);
+    title.append(hold.substring(8));
+
+  }).catch(function(error){});
+  });
 }

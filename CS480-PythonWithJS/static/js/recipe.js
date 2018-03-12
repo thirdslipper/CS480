@@ -272,3 +272,58 @@ function removeButton(string) {
   newSearch();
   searchType = "recipe_search";
 }
+
+function profileSearch() {
+  emptyScreen();
+  //console
+
+  var dbRefObject = firebase.database().ref().child('Recipes/');
+  dbRefObject.on('value', snap => {
+    //search each recipe
+    snap.forEach(function(child){
+      var dbRecipeObj = dbRefObject.child(child.key + "/");
+      var dbIngreObject = dbRecipeObj.child('Ingredients/');
+      var recipe_loaded = false;
+
+
+      if (searchType == "ingredient_search") {
+          recipe_directory = "Recipes/" + dbRecipeObj.key + "/";
+          organizedDisplay();
+      }
+    });
+  });
+}
+
+function getProfile(){
+	var userRef = firebase.database().ref().child('User Profiles/');
+	var userEmail;
+
+	firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+		console.log(user.email);
+		userEmail = user.email;
+		userRef.orderByChild('Email').equalTo(userEmail).once("value", function(snapshot) {
+			snapshot.forEach(function(uname) {
+				 console.log(uname.child("displayName").val());
+				 document.getElementById("tags").innerHTML = "<h2>"+uname.child("displayName").val()+"'s Profile Page</h2>";
+				 document.getElementById("loader").innerHTML = "<h2>"+uname.child("displayName").val()+"'s Recipes</h2>";
+				  listProfileRecipes(uname.child("displayName").val());
+			 });
+		});
+  } else {
+    // No user is signed in.
+	console.log('nah');
+  }
+});
+}
+function listProfileRecipes(name){
+	var dfRecipeObject = firebase.database().ref().child('Recipes/');
+	dfRecipeObject.orderByChild('Posted by').equalTo(name).once('value', snap =>{
+		snap.forEach(function(child){
+			console.log('Made it inside '+child.key);
+			recipe_directory = "Recipes/" + child.key + "/";
+			organizedDisplay();
+		});
+	});
+}

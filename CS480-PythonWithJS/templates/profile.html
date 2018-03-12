@@ -8,8 +8,10 @@
     <!-- metadata -->
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../static/css/styles.css"/>
+	<script src="../static/js/jquery-3.3.1.js"></script>
 </head>
 
+<body onload="getProfile()">
 <body>
   <!-- HEADER -->
   <header>
@@ -52,11 +54,27 @@
   </div>
 
   <!-- BODY -->
-  <div id="loader"></div>
+  <div class="main_content">
+    <!-- ASIDE -->
+    <div class="aside">
+      <div id="tags"></div>
+    </div>
+    <!-- BODY -->
+    <div id=content>
+      <pre id="loader">
+        <!-- empty text dump -->
+      </pre>
+      <div class="thumbnail_layout">
+        <div id="thumbnails">
+          <!-- thumbnails go here -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- SCRIPTS -->
   <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-  <script>
+  <script type = "text/javascript">
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAnrHO7Zn9f25DUkfTyYE20aCJtTn60igI",

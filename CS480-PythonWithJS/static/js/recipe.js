@@ -174,7 +174,7 @@ function newSearch() {
       //   }
       // }
       if (searchType == "ingredient_search") {
-        if (num_matched == num_ingredients){
+        if (num_matched == button_array.length){
           recipe_directory = "Recipes/" + dbRecipeObj.key + "/";
           organizedDisplay();
         }
